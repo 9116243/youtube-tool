@@ -1,0 +1,10 @@
+"use strict";
+var _a, _b, _c, _d;
+var _e, _f, _g, _h;
+Object.defineProperty(exports, "__esModule", { value: true });
+var node_fs_1 = require("node:fs");
+(_a = (_e = process.env).NODE_ENV) !== null && _a !== void 0 ? _a : (_e.NODE_ENV = 'test');
+(_b = (_f = process.env).JWT_SECRET) !== null && _b !== void 0 ? _b : (_f.JWT_SECRET = 'test-secret');
+(_c = (_g = process.env).KMS_SECRET) !== null && _c !== void 0 ? _c : (_g.KMS_SECRET = 'test-kms-secret-123');
+(_d = (_h = process.env).WORK_DIR) !== null && _d !== void 0 ? _d : (_h.WORK_DIR = './workspace');
+(0, node_fs_1.mkdirSync)(process.env.WORK_DIR, { recursive: true });

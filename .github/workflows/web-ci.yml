@@ -1,29 +1,59 @@
-﻿name: web-ci
+name: web-ci
 on:
+  push:
+    branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch: {}
 jobs:
-  build:
+  detect-pm:
+    runs-on: ubuntu-latest
+    outputs:
+      pm: ${{ steps.pick.outputs.pm }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: pick
+        run: |
+          if [ -f pnpm-lock.yaml ]; then echo "pm=pnpm" >> $GITHUB_OUTPUT
+          elif [ -f yarn.lock ]; then echo "pm=yarn" >> $GITHUB_OUTPUT
+          else echo "pm=npm" >> $GITHUB_OUTPUT; fi
+
+  typecheck:
+    needs: detect-pm
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Detect workspace (root or /web)
-        run: |
-          if [ -f package.json ]; then echo "WORK=." >> $GITHUB_ENV;
-          elif [ -f web/package.json ]; then echo "WORK=web" >> $GITHUB_ENV;
-          else echo "No package.json found" && exit 1; fi
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
           cache: npm
-          cache-dependency-path: ${{ env.WORK }}/package-lock.json
       - name: Install deps
         run: |
-          cd "$WORK"
-          if [ -f package-lock.json ]; then npm ci; else npm install; fi
-      - name: Typecheck (soft)
-        run: npm run tsc:web || echo "::warning :: typecheck failed (soft)"
-      - name: Build (soft)
+          if [ "${{ needs.detect-pm.outputs.pm }}" = "pnpm" ]; then npm i -g pnpm && pnpm i --frozen-lockfile || pnpm i;
+          elif [ "${{ needs.detect-pm.outputs.pm }}" = "yarn" ]; then yarn install --frozen-lockfile || yarn install;
+          else npm ci || npm i; fi
+      - name: Typecheck
         run: |
-          cd "$WORK"
-          npm run build || { echo "::warning :: build failed (soft)"; true; }
+          if [ "${{ needs.detect-pm.outputs.pm }}" = "pnpm" ]; then pnpm run typecheck || pnpm exec tsc -p .;
+          elif [ "${{ needs.detect-pm.outputs.pm }}" = "yarn" ]; then yarn typecheck || yarn tsc -p .;
+          else npm run typecheck || npx tsc -p .; fi
+
+  build:
+    needs: detect-pm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install deps
+        run: |
+          if [ "${{ needs.detect-pm.outputs.pm }}" = "pnpm" ]; then npm i -g pnpm && pnpm i;
+          elif [ "${{ needs.detect-pm.outputs.pm }}" = "yarn" ]; then yarn install;
+          else npm ci || npm i; fi
+      - name: Build frontend
+        run: |
+          if [ "${{ needs.detect-pm.outputs.pm }}" = "pnpm" ]; then pnpm run build;
+          elif [ "${{ needs.detect-pm.outputs.pm }}" = "yarn" ]; then yarn build;
+          else npm run build; fi

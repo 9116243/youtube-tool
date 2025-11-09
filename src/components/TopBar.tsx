@@ -1,253 +1,186 @@
+<<<<<<< HEAD
+import React, { type ChangeEvent, type MouseEvent, type ReactNode, useMemo } from 'react';
+import { motion } from 'framer-motion';
+import { Bell, Menu, Moon, Sun } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+=======
 ﻿import { useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Bell, ChevronDown, Menu, Moon, Settings, Sun, User } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
+>>>>>>> origin/main
 
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
-import { Badge } from '@/components/ui/badge';
-import { SIDEBAR_LINKS } from '@/components/Sidebar';
-import { Logo } from '@/components/Logo';
-import { cn } from '@/lib/utils';
 import { useAppStore } from '@/lib/store';
+import { Logo } from '@/components/Logo';
 
-const routeTitleMap = SIDEBAR_LINKS.reduce<Record<string, string>>((acc, link) => {
+type NavItem = {
+  key: string;
+  to: string;
+  label: string;
+  icon: ReactNode;
+};
+
+const NAV_ITEMS: NavItem[] = [
+  { key: 'dashboard', to: '/dashboard', label: 'nav.dashboard', icon: <Menu size={16} /> },
+  { key: 'workflow', to: '/workflow', label: 'nav.workflow', icon: <Menu size={16} /> },
+  { key: 'publishing', to: '/publish', label: 'nav.publishing', icon: <Menu size={16} /> },
+  { key: 'analytics', to: '/analytics', label: 'nav.analytics', icon: <Menu size={16} /> },
+  { key: 'reports', to: '/reports', label: 'nav.reports', icon: <Menu size={16} /> },
+  { key: 'teams', to: '/teams', label: 'nav.teams', icon: <Menu size={16} /> },
+  { key: 'settings', to: '/settings', label: 'nav.settings', icon: <Menu size={16} /> }
+];
+
+const routeTitleMap = NAV_ITEMS.reduce<Record<string, string>>((acc, link) => {
   acc[link.to] = link.label;
   return acc;
 }, {});
 
-export function TopBar() {
+export type Breadcrumb = {
+  label: string;
+  path: string;
+};
+
+export interface TopbarProps {
+  onMenuToggle?: (event: MouseEvent<HTMLButtonElement>) => void;
+  onThemeToggle?: (event: MouseEvent<HTMLButtonElement>) => void;
+  onNotificationsClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  onSearchChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  navItems?: NavItem[];
+  breadcrumbs?: Breadcrumb[];
+  searchValue?: string | number;
+  theme?: 'dark' | 'light';
+}
+
+const Topbar: React.FC<TopbarProps> = ({
+  breadcrumbs: breadcrumbsOverride,
+  navItems: navItemsOverride,
+  onMenuToggle,
+  onThemeToggle,
+  onNotificationsClick,
+  onSearchChange,
+  searchValue,
+  theme: themeOverride
+}) => {
+  const { t } = useTranslation('common');
   const location = useLocation();
-  const notifications = useAppStore((state) => state.notifications);
-  const clearNotifications = useAppStore((state) => state.clearNotifications);
-  const theme = useAppStore((state) => state.theme);
+  const storageTheme = useAppStore((state) => state.theme);
   const toggleTheme = useAppStore((state) => state.toggleTheme);
-  const toggleSidebarMobile = useAppStore((state) => state.toggleSidebarMobile);
-  const sidebarCollapsed = useAppStore((state) => state.sidebarCollapsed);
-  const toggleSidebarCollapsed = useAppStore((state) => state.toggleSidebarCollapsed);
+  const activeTheme = themeOverride ?? storageTheme;
 
-  const workspace = useAppStore((state) => state.activeWorkspace);
-  const setWorkspace = useAppStore((state) => state.setActiveWorkspace);
+  const breadcrumbs = useMemo(() => {
+    const computed = (() => {
+      const segments = location.pathname.split('/').filter(Boolean);
+      if (!segments.length) {
+        return [{ label: t('nav.dashboard'), path: '/dashboard' }];
+      }
+      return segments.map((segment, index) => {
+        const path = `/${segments.slice(0, index + 1).join('/')}`;
+        const key = routeTitleMap[path];
+        return {
+          label: key ? t(key) : segment.replace(/-/g, ' '),
+          path
+        };
+      });
+    })();
+    return breadcrumbsOverride ?? computed;
+  }, [breadcrumbsOverride, location.pathname, t]);
 
-  const breadcrumbItems = useMemo(() => {
-    const segments = location.pathname.split('/').filter(Boolean);
-    if (segments.length === 0) {
-      return [{ label: routeTitleMap['/dashboard'] ?? 'Mission Control', path: '/dashboard' }];
+  const normalizedSearchValue =
+    searchValue === undefined || searchValue === null ? '' : String(searchValue);
+  const showSearch = Boolean(onSearchChange);
+
+  const handleMenuToggle = (event: MouseEvent<HTMLButtonElement>) => {
+    onMenuToggle?.(event);
+  };
+
+  const handleThemeToggle = (event: MouseEvent<HTMLButtonElement>) => {
+    if (onThemeToggle) {
+      onThemeToggle(event);
+      return;
     }
+    toggleTheme();
+  };
 
-    return segments.map((segment, index) => {
-      const path = `/${segments.slice(0, index + 1).join('/')}`;
-      return {
-        label: routeTitleMap[path] ?? segment.replace(/-/g, ' '),
-        path
-      };
-    });
-  }, [location.pathname]);
+  const handleNotificationsClick = (event: MouseEvent<HTMLButtonElement>) => {
+    onNotificationsClick?.(event);
+  };
+
+  const navItems = navItemsOverride ?? NAV_ITEMS;
 
   return (
     <motion.header
-      className="sticky top-0 z-30 border-b border-slate-800/40 bg-slate-950/70 px-4 py-4 backdrop-blur-xl sm:px-6 lg:px-8"
-      initial={{ y: -12, opacity: 0 }}
+      className="sticky top-0 z-30 border-b border-slate-800/40 bg-slate-950/70 px-4 py-3 backdrop-blur-xl"
+      initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.28, ease: 'easeOut' }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
     >
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <motion.button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-800/40 bg-slate-900/60 text-slate-200 shadow-[0_0_20px_rgba(15,23,42,0.45)] transition-colors hover:border-sky-500/40 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40 lg:hidden"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.94 }}
-            onClick={toggleSidebarMobile}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-800/40 bg-slate-900/60 text-slate-200 shadow-lg transition hover:border-sky-500/60"
+            whileTap={{ scale: 0.95 }}
             aria-label="Toggle navigation"
+            onClick={handleMenuToggle}
           >
-            <Menu size={20} strokeWidth={1.7} />
+            <Menu size={18} />
           </motion.button>
-
-          <Logo className="lg:hidden" />
-
-          <div className="hidden items-center gap-3 lg:flex">
-            <motion.button
-              type="button"
-              onClick={toggleSidebarCollapsed}
-              className={cn(
-                'hidden h-11 rounded-xl border border-slate-800/40 bg-slate-900/60 px-4 text-xs font-semibold uppercase tracking-wide text-slate-300 shadow-[0_0_24px_rgba(15,23,42,0.45)] transition-colors hover:border-sky-500/40 hover:text-sky-100 lg:inline-flex',
-                sidebarCollapsed && 'text-sky-200 hover:text-sky-200'
-              )}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.96 }}
-            >
-              {sidebarCollapsed ? 'Expand' : 'Collapse'}
-            </motion.button>
-
-            <motion.nav
-              key={location.pathname}
-              initial={{ opacity: 0, x: -12 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.24, ease: 'easeOut' }}
-              aria-label="Breadcrumb"
-              className="flex items-center gap-2 text-sm font-semibold text-slate-100"
-            >
-              <AnimatePresence initial={false}>
-                {breadcrumbItems.map((item, index) => (
-                  <motion.span
-                    key={item.path}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -6 }}
-                    transition={{ duration: 0.2, ease: 'easeOut' }}
-                    className="flex items-center gap-2"
-                  >
-                    {index > 0 && <span className="text-slate-500">/</span>}
-                    <span className="capitalize text-slate-200">{item.label}</span>
-                  </motion.span>
-                ))}
-              </AnimatePresence>
-            </motion.nav>
-          </div>
+          <Logo />
+          <nav aria-label="Breadcrumb" className="hidden lg:flex items-center gap-2 text-sm font-semibold">
+            {(breadcrumbs ?? []).map((item, index) => (
+              <span key={item.path} className="flex items-center gap-2 text-slate-200">
+                {index > 0 && <span className="text-slate-500">/</span>}
+                <Link to={item.path} className="text-slate-100 transition hover:text-sky-300">
+                  {item.label}
+                </Link>
+              </span>
+            ))}
+          </nav>
         </div>
-
-        <div className="flex items-center gap-2 sm:gap-3">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <motion.button
-                type="button"
-                className="hidden items-center gap-2 rounded-xl border border-slate-800/40 bg-slate-900/60 px-4 py-2 text-left text-xs font-semibold uppercase tracking-wider text-slate-300 shadow-[0_0_20px_rgba(15,23,42,0.45)] transition-all hover:border-sky-500/40 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40 sm:flex"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
-              >
-                <span>Workspace</span>
-                <ChevronDown size={14} />
-              </motion.button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-52">
-                <DropdownMenuLabel>Select workspace</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuRadioGroup
-                  value={workspace}
-                  onValueChange={(value) => setWorkspace(value as typeof workspace)}
-                >
-                <DropdownMenuRadioItem value="global">Global HQ</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="cn">Shanghai Studio</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="intl">International Team</DropdownMenuRadioItem>
-              </DropdownMenuRadioGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <motion.button
+        <div className="flex items-center gap-3">
+          {showSearch && (
+            <div className="hidden h-full items-center gap-2 rounded-full border border-slate-800/40 bg-slate-900/60 px-3 py-1 text-sm text-slate-300 lg:flex">
+              <input
+                type="search"
+                value={normalizedSearchValue}
+                onChange={onSearchChange}
+                placeholder={t('actions.search') || 'Search'}
+                aria-label={t('actions.search') || 'Search'}
+                className="w-full bg-transparent text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none"
+              />
+            </div>
+          )}
+          <button
             type="button"
-            onClick={toggleTheme}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-800/40 bg-slate-900/60 text-slate-200 shadow-[0_0_22px_rgba(15,23,42,0.45)] transition-colors hover:border-sky-500/40 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
-            whileHover={{ scale: 1.06 }}
-            whileTap={{ scale: 0.94 }}
+            onClick={handleThemeToggle}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-800/40 bg-slate-900/60 text-slate-200 transition hover:border-sky-500/40"
             aria-label="Toggle theme"
           >
-            <AnimatePresence mode="wait" initial={false}>
-              {theme === 'dark' ? (
-                <motion.span
-                  key="moon"
-                  initial={{ opacity: 0, rotate: -25, scale: 0.8 }}
-                  animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                  exit={{ opacity: 0, rotate: 25, scale: 0.8 }}
-                  transition={{ duration: 0.24, ease: 'easeOut' }}
-                  className="text-sky-300"
-                >
-                  <Moon size={18} strokeWidth={1.7} />
-                </motion.span>
-              ) : (
-                <motion.span
-                  key="sun"
-                  initial={{ opacity: 0, rotate: -25, scale: 0.8 }}
-                  animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                  exit={{ opacity: 0, rotate: 25, scale: 0.8 }}
-                  transition={{ duration: 0.24, ease: 'easeOut' }}
-                  className="text-amber-400"
-                >
-                  <Sun size={18} strokeWidth={1.8} />
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </motion.button>
-
-          <motion.button
+            {activeTheme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+          <button
             type="button"
-            onClick={clearNotifications}
-            className="relative inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-800/40 bg-slate-900/60 text-slate-200 shadow-[0_0_22px_rgba(15,23,42,0.45)] transition-colors hover:border-sky-500/40 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
-            whileHover={{ scale: 1.06 }}
-            whileTap={{ scale: 0.94 }}
+            onClick={handleNotificationsClick}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-800/40 bg-slate-900/60 text-slate-200 transition hover:border-sky-500/40"
             aria-label="View notifications"
           >
-            <Bell size={18} strokeWidth={1.7} />
-            <AnimatePresence>
-              {notifications > 0 && (
-                <motion.span
-                  key="notifications"
-                  initial={{ scale: 0.6, opacity: 0, y: -4 }}
-                  animate={{ scale: 1, opacity: 1, y: 0 }}
-                  exit={{ scale: 0.6, opacity: 0, y: -4 }}
-                  transition={{ duration: 0.18, ease: 'easeOut' }}
-                  className="absolute -right-1 -top-1"
-                >
-                  <Badge className="h-5 min-w-[22px] justify-center bg-sky-500 text-[11px] text-slate-950 shadow-[0_0_18px_rgba(14,165,233,0.65)]">
-                    {notifications}
-                  </Badge>
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </motion.button>
-
-          <motion.button
-            type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-800/40 bg-slate-900/60 text-slate-200 shadow-[0_0_22px_rgba(15,23,42,0.45)] transition-colors hover:border-sky-500/40 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
-            whileHover={{ rotate: 45, scale: 1.08 }}
-            whileTap={{ scale: 0.92 }}
-            aria-label="Open settings"
-          >
-            <Settings size={18} strokeWidth={1.7} />
-          </motion.button>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <motion.button
-                type="button"
-                className="inline-flex items-center gap-3 rounded-2xl border border-slate-800/40 bg-gradient-to-tr from-slate-900/80 via-slate-900/60 to-slate-800/60 px-3 py-2 text-left shadow-[0_0_24px_rgba(15,23,42,0.55)] transition-colors hover:border-sky-500/40 focus:outline-none focus:ring-2 focus:ring-sky-500/40 sm:px-4"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 via-indigo-500 to-violet-500 text-white shadow-[0_0_28px_rgba(99,102,241,0.6)]">
-                  <User size={18} strokeWidth={1.8} />
-                </span>
-                <div className="hidden min-w-0 flex-col text-left sm:flex">
-                  <span className="text-sm font-semibold text-slate-100">Nova Chen</span>
-                  <span className="text-xs text-slate-400">Executive Producer</span>
-                </div>
-                <ChevronDown size={14} className="hidden text-slate-400 sm:block" />
-              </motion.button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-52">
-              <DropdownMenuLabel>Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Team settings</DropdownMenuItem>
-              <DropdownMenuCheckboxItem checked disabled>
-                Two-factor enabled
-              </DropdownMenuCheckboxItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Sign out</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+            <Bell size={18} />
+            <span className="sr-only">{t('actions.new') || 'Notifications'}</span>
+          </button>
+          <div className="rounded-full bg-slate-900/70 px-3 py-1 text-xs uppercase tracking-wide text-slate-300">
+            {t('brand.name')}
+          </div>
         </div>
       </div>
     </motion.header>
   );
+<<<<<<< HEAD
+};
+
+export { Topbar };
+export default Topbar;
+=======
 }
 
+>>>>>>> origin/main

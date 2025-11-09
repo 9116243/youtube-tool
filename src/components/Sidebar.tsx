@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next';
 import { Logo } from '@/components/Logo';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -40,6 +41,7 @@ export function Sidebar() {
   const closeMobile = useAppStore((state) => state.closeSidebarMobile);
   const [hovered, setHovered] = useState<string | null>(null);
   const computedWidth = collapsed && !mobileOpen ? 72 : 264;
+  const { t } = useTranslation();
 
   return (
     <motion.aside
@@ -109,8 +111,8 @@ export function Sidebar() {
 
                       {(!collapsed || mobileOpen) && (
                         <div className="flex min-w-0 flex-1 flex-col">
-                          <span className="truncate text-sm font-semibold tracking-tight">{item.label}</span>
-                          <span className="truncate text-xs text-slate-400">{item.description}</span>
+                          <span className="truncate text-sm font-semibold tracking-tight">{t(item.labelKey)}</span>
+                          <span className="truncate text-xs text-slate-400">{t(item.descriptionKey)}</span>
                         </div>
                       )}
 
@@ -137,7 +139,7 @@ export function Sidebar() {
                             transition={{ duration: 0.18 }}
                             className="pointer-events-none absolute left-full ml-4 whitespace-nowrap rounded-lg bg-slate-900/95 px-3 py-1.5 text-xs font-semibold text-slate-100 shadow-[0_14px_35px_rgba(15,23,42,0.55)]"
                           >
-                            {item.label}
+                            {t(item.labelKey)}
                           </motion.span>
                         )}
                       </AnimatePresence>
