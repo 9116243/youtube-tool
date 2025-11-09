@@ -25,6 +25,7 @@ import { useToast } from "@/hooks/use-toast"
 import { timeAgo } from "@/lib/utils"
 
 // 璇█ & 闃熷垪 & 娴佹按绾?import { LANGUAGES, type LanguageCode } from "@/lib/languages"
+import { LANGUAGES, type LanguageCode } from "@/lib/languages"
 import { useQueueStore } from "@/features/queue/store"
 import type { BaseTask, SubtitleTaskPayload } from "@/lib/pipeline"
 
@@ -131,12 +132,11 @@ export function PublishPage() {
   const [statusFilter, setStatusFilter] = useState<PublishStatus | "all">("all")
   const [regionFilter, setRegionFilter] = useState<string>("all")
 
-  // 馃憠 鏂板锛氭祦姘寸嚎杈撳叆锛堣棰戞爣棰?/ 婧愯棰戝湴鍧€锛?  const [videoTitle, setVideoTitle] = useState("鏍风墖鏍囬")
+  // Pipeline inputs (video title + source URL)
+  const [videoTitle, setVideoTitle] = useState("Sample Title")
   const [sourceUrl, setSourceUrl] = useState("/media/demo.mp4")
-
-  // 馃憠 鏂板锛氳閫夋嫨
+  // Row selections for campaign actions
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
-
   const filteredRows = useMemo(() => {
     return rows
       .filter((row) => {
@@ -188,21 +188,28 @@ export function PublishPage() {
     })
   }
 
-  // 馃憠 鍏抽敭锛氭妸閫変腑琛?鈫?璇█鏁扮粍 鈫?鐢熸垚瀛楀箷浠诲姟 鈫?鐢熸垚鈥滈厤闊?鐑у綍鈥濇祦姘寸嚎骞跺叆闃?  const createPipelineFromSelection = async () => {
+  // Build a localization pipeline from the highlighted rows
+  const createPipelineFromSelection = async () => {
     const selectedRows = filteredRows.filter((r) => selectedIds.has(r.id))
     if (!selectedRows.length) {
-      toast({ title: "璇烽€夋嫨瑕佺敓鎴愮殑琛?, description: "璇疯嚦灏戝嬀閫変竴鏉¤瑷€琛?, variant: "destructive" as any })
+      toast({
+        title: "Select at least one row",
+        description: "Please pick a row before building a pipeline.",
+        variant: "destructive" as any,
+      })
       return
     }
     if (!sourceUrl.trim()) {
-      toast({ title: "缂哄皯瑙嗛鍦板潃", description: "璇峰～鍐?Source Video URL", variant: "destructive" as any })
+      toast({
+        title: "Source video missing",
+        description: "Fill in the Source Video URL before submitting.",
+        variant: "destructive" as any,
+      })
       return
     }
 
-    // 1) 鐢熸垚鈥滃瓧骞曚换鍔♀€濆苟鍏ラ槦锛堝墠绔垱寤猴紱涔熷彲浠ユ敼涓哄悗绔帴鍙ｅ垱寤猴級
     const subTasks: BaseTask<SubtitleTaskPayload>[] = selectedRows.map((r) => {
       const lang = r.language as LanguageCode
-      // 绠€鍗曟牎楠岋細蹇呴』鍦ㄨ瑷€琛ㄩ噷瀛樺湪
       const meta = LANGUAGES.find((l) => l.code === lang)
       if (!meta) {
         throw new Error(`Unsupported language: ${lang}`)
@@ -210,7 +217,7 @@ export function PublishPage() {
       return {
         id: nid(`sub_${lang}`),
         kind: "subtitle",
-        title: `瀛楀箷 路 ${lang}`,
+        title: `字幕 · ${lang}`,
         params: {
           kind: "subtitle",
           sourceUrl,
@@ -226,7 +233,7 @@ export function PublishPage() {
       }
     })
 
-    // 鍏堟妸鈥滃瓧骞曚换鍔♀€濅綔涓烘櫘閫氫换鍔″叆闃燂紙鍚庣鍙互閫夋嫨蹇界暐/澶勭悊锛?    await queue.addTasks(
+    await queue.addTasks(
       subTasks.map((t) => ({
         title: t.title,
         preset: "subtitle-generation",
@@ -238,22 +245,23 @@ export function PublishPage() {
       })),
     )
 
-    // 2) 鍐嶈闃熷垪鏍规嵁鈥滃瓧骞曚换鍔♀€濊嚜鍔ㄧ敓鎴?閰嶉煶+鐑у綍
     const { dubs, burns } = await queue.addLocalizationPipeline({
       subtitleTasks: subTasks,
       sourceVideo: sourceUrl,
       provider: "elevenlabs",
-      voiceMap: {}, // 濡傛灉椤甸潰涓婃帴浜?TTSSelector锛屽彲浠ユ妸鍚勮瑷€ voiceId 濉繘鏉?      outDir: "./outputs",
+      voiceMap: {},
+      outDir: "./outputs",
       codec: "h264",
       resolution: "1080p",
       mixDubbing: true,
     })
 
     toast({
-      title: `宸插垱寤烘祦姘寸嚎浠诲姟`,
-      description: `瀛楀箷 ${subTasks.length} 鏉?路 閰嶉煶 ${dubs.length} 鏉?路 鐑у綍 ${burns.length} 鏉,
+      title: `Pipeline created`,
+      description: `Subtitles ${subTasks.length} · Dubs ${dubs.length} · Burns ${burns.length}`,
     })
   }
+
 
   return (
     <div className="space-y-8">
@@ -272,7 +280,9 @@ export function PublishPage() {
       <Card className="bg-white/5 backdrop-blur-xl">
         <CardHeader>
           <CardTitle className="text-base">Pipeline Inputs</CardTitle>
-          <CardDescription>閫夋嫨琛ㄦ牸琛屽悗锛屽～鍐欎笅闈俊鎭紝涓€閿敓鎴愨€滃瓧骞曗啋閰嶉煶鈫掔儳褰曗€濄€?/CardDescription>
+          <CardDescription>
+            Select rows, fill the inputs, and launch the subtitle → dub → burn pipeline.
+          </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4 lg:grid-cols-2">
           <div className="space-y-2">
@@ -304,15 +314,11 @@ export function PublishPage() {
         </CardContent>
       </Card>
 
-      {/* 杩囨护鍣?*/}
       <Card className="bg-white/5 backdrop-blur-xl">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-base">
-            <Globe2 className="h-4 w-4 text-cyan-300" />
-            Filters
-          </CardTitle>
+                <CardHeader>
+          <CardTitle className="text-base">Pipeline Inputs</CardTitle>
           <CardDescription>
-            Match campaign cadence to regional primetime. All fields sync back to the publishing API mock.
+            Select rows, fill the inputs, and launch the subtitle → dub → burn pipeline.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4 lg:grid-cols-3">

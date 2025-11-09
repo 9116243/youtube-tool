@@ -66,6 +66,8 @@ The `mock/server.js` process exposes:
 - `GET /api/tasks` / `GET /api/tasks/:id` - list and inspect tasks
 - `GET /api/sse/progress?taskId=...` - progress stream emitting 3-7% increments until 100%
 
+For the production Express backend (authentication, SSE heartbeat guidance, `/metrics`, etc.) see [docs/api-sse.md](docs/api-sse.md).
+
 `src/lib/api.ts` logs the derived ffmpeg arguments (via `buildFfmpegArgs`) so you can cross-check encoder profiles during development.
 ## FAQ
 
@@ -118,6 +120,8 @@ With the mock server and Vite dev server running you should see the complete UI:
 3. 通过 `/v1/languages` 获取服务端支持的语言列表（含 RTL 标记与 TTS 提示）以保持前端下拉与通知文案同步。
 3. `PROVIDER_PRICING_FILE`（默认 `src/config/providers.cost.json`）锁定预期的每分钟费用与 sigma 基准，指标超出 `cost_rollup_unit_cost_sigma > 2` 会触发 Prometheus Alert。
 4. 若要调试或模拟定价异常，可临时更新价格文件或注入低/高费用的生成任务，然后观察 `/v1/analytics/unit-economics` 返回的 `providerSignals` 与 alert 触发。
+
+For details on scraping `/metrics`, re-importing `grafana/dashboards/youtube-observability.json`, and tuning `alerts/prometheus-rules.yaml`, read [docs/observability.md](docs/observability.md).
 
 ## License Compliance & Publishing Guardrails
 

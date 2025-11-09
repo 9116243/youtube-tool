@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: web-ci
 on:
   push:
@@ -57,3 +58,34 @@ jobs:
           if [ "${{ needs.detect-pm.outputs.pm }}" = "pnpm" ]; then pnpm run build;
           elif [ "${{ needs.detect-pm.outputs.pm }}" = "yarn" ]; then yarn build;
           else npm run build; fi
+=======
+﻿name: web-ci
+on:
+  pull_request:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Detect workspace (root or /web)
+        run: |
+          if [ -f package.json ]; then echo "WORK=." >> $GITHUB_ENV;
+          elif [ -f web/package.json ]; then echo "WORK=web" >> $GITHUB_ENV;
+          else echo "No package.json found" && exit 1; fi
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: ${{ env.WORK }}/package-lock.json
+      - name: Install deps
+        run: |
+          cd "$WORK"
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+      - name: Typecheck (soft)
+        run: npm run tsc:web || echo "::warning :: typecheck failed (soft)"
+      - name: Build (soft)
+        run: |
+          cd "$WORK"
+          npm run build || { echo "::warning :: build failed (soft)"; true; }
+>>>>>>> origin/main

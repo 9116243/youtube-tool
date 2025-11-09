@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 import React, { type ChangeEvent, type MouseEvent, type ReactNode, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Bell, Menu, Moon, Sun } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+=======
+﻿import { useMemo } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Bell, ChevronDown, Menu, Moon, Settings, Sun, User } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
+>>>>>>> origin/main
 
 import { useAppStore } from '@/lib/store';
 import { Logo } from '@/components/Logo';
@@ -168,7 +175,12 @@ const Topbar: React.FC<TopbarProps> = ({
       </div>
     </motion.header>
   );
+<<<<<<< HEAD
 };
 
 export { Topbar };
 export default Topbar;
+=======
+}
+
+>>>>>>> origin/main
