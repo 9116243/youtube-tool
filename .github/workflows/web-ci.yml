@@ -2,14 +2,34 @@
 on:
   pull_request:
     branches: [main]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Detect workspace (root or /web)
+        run: |
+          if [ -f package.json ]; then echo "WORK=." >> $GITHUB_ENV;
+          elif [ -f web/package.json ]; then echo "WORK=web" >> $GITHUB_ENV;
+          else echo "No package.json found" && exit 1; fi
+
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
-      - run: npm ci
-      - run: npm run tsc:web
-      - run: npm run build
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: ${{ env.WORK }}/package-lock.json
+
+      - name: Install deps (ci or install)
+        run: |
+          cd "$WORK"
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+
+      - name: Typecheck
+        run: npm run tsc:web
+        working-directory: ${{ env.WORK }}
+
+      - name: Build
+        run: npm run build
+        working-directory: ${{ env.WORK }}
