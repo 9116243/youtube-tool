@@ -1,0 +1,22 @@
+{
+  "brand": { "name": "VividAI｜视域智能", "slogan": "即刻爆发灵感" },
+  "nav": { "dashboard": "总控", "workflow": "流程", "publishing": "发布", "analytics": "分析", "reports": "报表", "teams": "团队", "settings": "设置", "aiwriting": "生成室", "cover": "视觉", "qa": "质检", "assets": "素材", "admin": "合规" },
+  "navDescription": {
+    "dashboard": "实时总控",
+    "workflow": "自动化流程",
+    "publishing": "发布与质检",
+    "analytics": "业务分析",
+    "reports": "数据报表",
+    "teams": "协同团队",
+    "settings": "系统设置",
+    "aiwriting": "Prompt 与语音",
+    "cover": "封面创意",
+    "qa": "品质检测",
+    "assets": "下载导出",
+    "admin": "控制面板"
+  },
+  "actions": { "new": "新建", "save": "保存", "cancel": "取消", "delete": "删除", "run": "运行", "export": "导出" },
+  "search": { "global": "搜项目或任务…" },
+  "states": { "empty": "还没有数据，先建个任务", "loading": "加载中…", "error": "出错了" },
+  "status": { "ok": "正常", "warn": "警告", "error": "错误", "queued": "排队", "running": "运行中", "success": "完成", "failed": "失败" }
+}

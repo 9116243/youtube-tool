@@ -20,15 +20,15 @@ import { cn } from '@/lib/utils';
 import { useAppStore } from '@/lib/store';
 
 export const SIDEBAR_LINKS = [
-  { label: 'Mission Control', description: 'Realtime intelligence', to: '/dashboard', icon: LayoutDashboard },
-  { label: 'AI Workflow Lab', description: 'Automate production flow', to: '/workflow', icon: Sparkles },
-  { label: 'Generative Studio', description: 'Prompts & voice', to: '/aiwriting', icon: Bot },
-  { label: 'Visual Forge', description: 'Cover design system', to: '/cover', icon: Layers },
-  { label: 'Publishing Hub', description: 'Scheduling & QA', to: '/publish', icon: Upload },
-  { label: 'QA Laboratory', description: 'Video quality metrics', to: '/qa', icon: Gauge },
-  { label: 'Report Center', description: 'QA packets and exports', to: '/reports', icon: FileText },
-  { label: 'Asset Vault', description: 'Downloads & exports', to: '/downloads', icon: Library },
-  { label: 'Compliance Desk', description: 'Controls & audit', to: '/admin', icon: ShieldCheck }
+  { labelKey: 'nav.dashboard', descriptionKey: 'navDescription.dashboard', to: '/dashboard', icon: LayoutDashboard },
+  { labelKey: 'nav.workflow', descriptionKey: 'navDescription.workflow', to: '/workflow', icon: Sparkles },
+  { labelKey: 'nav.aiwriting', descriptionKey: 'navDescription.aiwriting', to: '/aiwriting', icon: Bot },
+  { labelKey: 'nav.cover', descriptionKey: 'navDescription.cover', to: '/cover', icon: Layers },
+  { labelKey: 'nav.publishing', descriptionKey: 'navDescription.publishing', to: '/publish', icon: Upload },
+  { labelKey: 'nav.qa', descriptionKey: 'navDescription.qa', to: '/qa', icon: Gauge },
+  { labelKey: 'nav.reports', descriptionKey: 'navDescription.reports', to: '/reports', icon: FileText },
+  { labelKey: 'nav.assets', descriptionKey: 'navDescription.assets', to: '/downloads', icon: Library },
+  { labelKey: 'nav.admin', descriptionKey: 'navDescription.admin', to: '/admin', icon: ShieldCheck }
 ] as const;
 
 export type SidebarLink = (typeof SIDEBAR_LINKS)[number];

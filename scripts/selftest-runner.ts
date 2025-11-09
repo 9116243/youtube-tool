@@ -8,7 +8,7 @@ const run = async () => {
     method: 'POST',
     headers: { 'X-Selftest-Key': process.env.SELFTEST_API_KEY ?? '' }
   });
-  const payload = await response.json().catch(() => ({}));
+  const payload = (await response.json().catch(() => ({}))) as Record<string, unknown>;
   if (!response.ok) {
     console.error('Selftest failed', payload);
     process.exit(1);

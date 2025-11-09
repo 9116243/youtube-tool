@@ -1,0 +1,22 @@
+{
+  "brand": { "name": "VividAI｜視域智能", "slogan": "靈感即刻綻放" },
+  "nav": { "dashboard": "總控台", "workflow": "流程", "publishing": "發佈", "analytics": "分析", "reports": "報表", "teams": "團隊", "settings": "設定", "aiwriting": "生成工坊", "cover": "視覺工場", "qa": "QA 實驗室", "assets": "素材庫", "admin": "合規組" },
+  "navDescription": {
+    "dashboard": "即時總控",
+    "workflow": "流程自動化",
+    "publishing": "發佈與 QA",
+    "analytics": "數據洞察",
+    "reports": "合規報表",
+    "teams": "協同中心",
+    "settings": "平台設定",
+    "aiwriting": "Prompt 與語音",
+    "cover": "封面設計系統",
+    "qa": "品質度量",
+    "assets": "下載與匯出",
+    "admin": "稽核與控管"
+  },
+  "actions": { "new": "新建", "save": "保存", "cancel": "取消", "delete": "刪除", "run": "執行", "export": "匯出" },
+  "search": { "global": "搜尋專案或任務…" },
+  "states": { "empty": "尚無資料，先建立任務", "loading": "載入中…", "error": "發生錯誤" },
+  "status": { "ok": "正常", "warn": "警告", "error": "錯誤", "queued": "排隊", "running": "執行中", "success": "完成", "failed": "失敗" }
+}

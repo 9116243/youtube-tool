@@ -1,0 +1,22 @@
+{
+  "brand": { "name": "VividAI", "slogan": "Create Brilliance. Instantly." },
+  "nav": { "dashboard": "Dashboard", "workflow": "Workflow", "publishing": "Publishing", "analytics": "Analytics", "reports": "Reports", "teams": "Teams", "settings": "Settings", "aiwriting": "Generative Studio", "cover": "Visual Forge", "qa": "QA Laboratory", "assets": "Asset Vault", "admin": "Compliance Desk" },
+  "navDescription": {
+    "dashboard": "Realtime intelligence hub",
+    "workflow": "Automate production flow",
+    "publishing": "Scheduling & QA",
+    "analytics": "Performance signals",
+    "reports": "Compliance exports",
+    "teams": "Collaboration center",
+    "settings": "Platform controls",
+    "aiwriting": "Prompts & voice",
+    "cover": "Cover design system",
+    "qa": "Quality metrics lab",
+    "assets": "Downloads & exports",
+    "admin": "Controls & audit"
+  },
+  "actions": { "new": "New", "save": "Save", "cancel": "Cancel", "delete": "Delete", "run": "Run", "export": "Export" },
+  "search": { "global": "Search projects or tasks…" },
+  "states": { "empty": "No data yet. Create a task first.", "loading": "Loading…", "error": "Something went wrong" },
+  "status": { "ok": "OK", "warn": "Warning", "error": "Error", "queued": "Queued", "running": "Running", "success": "Success", "failed": "Failed" }
+}
