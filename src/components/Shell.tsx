@@ -2,7 +2,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { Sidebar } from '@/components/Sidebar';
-import { TopBar } from '@/components/TopBar';
+import Topbar from '@/components/TopBar';
 import { useAppStore } from '@/lib/store';
 
 export function Shell({ children }: PropsWithChildren) {
@@ -33,7 +33,7 @@ export function Shell({ children }: PropsWithChildren) {
       <Sidebar />
 
       <div className="flex flex-1 flex-col">
-        <TopBar />
+        <Topbar />
         <main className="flex flex-1 flex-col overflow-y-auto px-4 pb-12 pt-6 sm:px-6 lg:px-10">
           {children}
         </main>
