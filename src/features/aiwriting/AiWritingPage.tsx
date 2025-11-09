@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ClipboardCopy, Lightbulb, Sparkles } from "lucide-react";
 
@@ -353,3 +353,4 @@ export function AiWritingPage() {
 }
 
 export default AiWritingPage;
+

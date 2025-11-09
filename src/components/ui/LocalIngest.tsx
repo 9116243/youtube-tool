@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+﻿import { useCallback, useEffect, useState } from "react";
 
 import { openDialogForVideo, readText, tauriInvoke, listenJobProgress } from "@/lib/tauri";
 import type { UnlistenFn } from "@/lib/tauri";
@@ -81,3 +81,4 @@ export default function LocalIngest() {
     </div>
   );
 }
+

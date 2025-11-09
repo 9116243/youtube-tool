@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+﻿import { useRef, useState } from "react";
 import { Play, Pause } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -59,3 +59,4 @@ export function PreviewPlayer({ src, poster, thumbnails }: PreviewPlayerProps) {
 }
 
 export default PreviewPlayer;
+

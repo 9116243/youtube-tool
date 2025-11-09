@@ -1,4 +1,4 @@
-import type { RenderProfile } from "@/lib/types";
+﻿import type { RenderProfile } from "@/lib/types";
 
 export interface MockQaResult {
   vmaf: number;
@@ -62,3 +62,4 @@ export function runQaMock(profile: RenderProfile): MockQaResult {
     notes,
   };
 }
+

@@ -1,4 +1,4 @@
-export interface SpriteJobResult {
+﻿export interface SpriteJobResult {
   sheetUrl: string;
   vttUrl: string;
 }
@@ -11,3 +11,4 @@ export async function generateSpriteSheet(videoPath: string): Promise<SpriteJobR
     vttUrl: `https://example.com/${id}.vtt`,
   };
 }
+

@@ -1,0 +1,17 @@
+﻿{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ES2022", "WebWorker"],
+    "types": ["vite/client"],
+    "noEmit": true,
+    "skipLibCheck": true,
+    "noImplicitAny": false
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts"],
+  "exclude": [
+    "server/**", "server_v2/**",
+    "src/storage/**", "src/adapters/**",
+    "src/queue/**",
+    "scripts/**", "**/*.test.*"
+  ]
+}

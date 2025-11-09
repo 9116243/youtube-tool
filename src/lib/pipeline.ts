@@ -1,4 +1,4 @@
-import type { LanguageCode } from "@/lib/languages";
+﻿import type { LanguageCode } from "@/lib/languages";
 
 export type TaskKind = "subtitle" | "dubbing" | "burnin";
 export type TaskStatus = "queued" | "running" | "success" | "failed";
@@ -147,3 +147,4 @@ export function createLocalizationPipeline(
 
   return { dubbing, burnIn };
 }
+

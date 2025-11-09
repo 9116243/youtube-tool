@@ -1,4 +1,4 @@
-import { create } from "zustand";
+﻿import { create } from "zustand";
 
 import type { Task } from "@/lib/types";
 import { formatBitrate, formatDuration, generatePlaceholderCover, prettyCodec } from "@/lib/utils";
@@ -211,3 +211,4 @@ export const useDownloadsStore = create<DownloadsStore>((set, get) => ({
       items: state.items.filter((item) => item.id !== id),
     })),
 }));
+

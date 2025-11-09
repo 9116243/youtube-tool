@@ -1,4 +1,4 @@
-import { create } from "zustand";
+﻿import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 import { BASE_RENDER_PROFILE, RECOMMENDED_BITRATES, STYLE_PRESETS } from "@/features/workflow/presets";
@@ -373,3 +373,4 @@ export type {
   TransitionStyle,
   BrollDensity,
 };
+

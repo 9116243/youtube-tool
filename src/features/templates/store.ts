@@ -1,4 +1,4 @@
-import { create } from "zustand";
+﻿import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 import type { RenderProfile, WorkflowTemplate, WorkflowTemplateVersion } from "@/lib/types";
@@ -106,3 +106,4 @@ export const useTemplateStore = create<TemplateStoreState>()(
     },
   ),
 );
+

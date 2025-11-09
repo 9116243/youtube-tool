@@ -1,4 +1,4 @@
-declare module '@tauri-apps/api/*' {
+﻿declare module '@tauri-apps/api/*' {
   const anyExport: any
   export = anyExport
 }

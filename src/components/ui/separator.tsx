@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+﻿import { cn } from "@/lib/utils";
 
 export interface SeparatorProps extends React.HTMLAttributes<HTMLDivElement> {
   orientation?: "horizontal" | "vertical";
@@ -20,3 +20,4 @@ export function Separator({ orientation = "horizontal", className, ...props }: S
 }
 
 export default Separator;
+

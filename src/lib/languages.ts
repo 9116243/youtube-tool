@@ -1,4 +1,4 @@
-export type LanguageCode =
+﻿export type LanguageCode =
   | "zh-CN"
   | "zh-TW"
   | "en-US"
@@ -144,3 +144,4 @@ export const isRTL = (code: LanguageCode) => Boolean(LANGUAGES.find((lang) => la
 export function findLang(code: LanguageCode | string) {
   return LANGUAGES.find((lang) => lang.code === code) ?? null;
 }
+

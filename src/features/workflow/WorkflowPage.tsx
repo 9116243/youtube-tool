@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import { ArrowRight, Layers3, Sparkles, Wand2 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -144,3 +144,4 @@ export function WorkflowPage() {
     </div>
   );
 }
+

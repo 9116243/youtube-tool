@@ -1,4 +1,4 @@
-import type { LanguageCode } from "./languages";
+﻿import type { LanguageCode } from "./languages";
 
 export type TTSProvider = "none" | "elevenlabs" | "azure" | "google";
 
@@ -55,3 +55,4 @@ export function providerLabel(provider: TTSProvider) {
       return "Not configured";
   }
 }
+

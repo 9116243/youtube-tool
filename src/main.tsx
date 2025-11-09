@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
@@ -29,3 +29,4 @@ void i18nReady.then(renderApp).catch((error) => {
   console.error('i18n initialization failed', error);
   renderApp();
 });
+

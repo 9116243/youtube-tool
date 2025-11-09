@@ -1,4 +1,4 @@
-export type TaskStatus = "queued" | "running" | "paused" | "success" | "failed" | "cancelled";
+﻿export type TaskStatus = "queued" | "running" | "paused" | "success" | "failed" | "cancelled";
 
 export interface TaskPayload {
   title: string;
@@ -309,3 +309,4 @@ export interface PerformanceEstimate {
   renderSeconds: number;
   notes: string[];
 }
+

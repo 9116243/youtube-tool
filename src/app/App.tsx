@@ -1,4 +1,4 @@
-import { AppProviders } from '@/app/providers/AppProviders';
+﻿import { AppProviders } from '@/app/providers/AppProviders';
 import { AppRoutes } from '@/app/routes/AppRoutes';
 
 function App() {
@@ -10,3 +10,4 @@ function App() {
 }
 
 export default App;
+

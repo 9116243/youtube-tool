@@ -1,4 +1,4 @@
-export const themeColors = {
+﻿export const themeColors = {
   background: {
     start: '#0E0E10',
     end: '#1A1D21'
@@ -23,3 +23,4 @@ export const glassPanel = {
   border: '1px solid rgba(255, 255, 255, 0.1)',
   blur: '12px'
 };
+

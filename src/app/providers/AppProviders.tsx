@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from "react";
+﻿import type { PropsWithChildren } from "react";
 import { Suspense } from "react";
 import { AnimatePresence } from "framer-motion";
 
@@ -19,3 +19,4 @@ export function AppProviders({ children }: PropsWithChildren) {
     </ThemeProvider>
   );
 }
+

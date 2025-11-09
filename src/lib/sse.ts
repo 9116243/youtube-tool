@@ -1,4 +1,4 @@
-export interface SSEController {
+﻿export interface SSEController {
   close: () => void;
 }
 
@@ -87,3 +87,4 @@ export function createSSE(
     },
   };
 }
+

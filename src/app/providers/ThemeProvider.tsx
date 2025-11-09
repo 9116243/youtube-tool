@@ -1,4 +1,4 @@
-import { type PropsWithChildren, useEffect } from 'react';
+﻿import { type PropsWithChildren, useEffect } from 'react';
 
 import { useAppStore } from '@/lib/store';
 
@@ -18,3 +18,4 @@ export function ThemeProvider({ children }: PropsWithChildren) {
 
   return children;
 }
+

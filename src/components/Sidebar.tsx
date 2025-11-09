@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import {
   Bot,
@@ -186,3 +186,4 @@ export function Sidebar() {
     </motion.aside>
   );
 }
+

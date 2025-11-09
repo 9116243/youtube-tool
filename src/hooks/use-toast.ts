@@ -1,4 +1,4 @@
-type ToastVariant = "default" | "destructive";
+﻿type ToastVariant = "default" | "destructive";
 
 export interface ToastOptions {
   title: string;
@@ -24,3 +24,4 @@ export function useToast(): ToastApi {
 }
 
 export default useToast;
+

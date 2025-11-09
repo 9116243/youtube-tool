@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import { Brain, Flame, Sparkles, TrendingUp } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -184,3 +184,4 @@ export function DashboardPage() {
     </div>
   );
 }
+
