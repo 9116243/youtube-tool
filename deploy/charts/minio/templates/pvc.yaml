@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "minio.fullname" . }}-pvc
+  labels:
+    {{ include "minio.labels" . | indent 4 }}
+  annotations:
+    {{- range $key, $value := .Values.storage.annotations }}
+    {{ $key }}: {{ quote $value }}
+    {{- end }}
+spec:
+  accessModes:
+    - {{ .Values.storage.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.storage.size }}
+  {{- if .Values.storage.storageClass }}
+  storageClassName: {{ .Values.storage.storageClass }}
+  {{- end }}

@@ -1,0 +1,3 @@
+resources:
+  - ../common
+  - ../../apps/worker-cpu.yaml

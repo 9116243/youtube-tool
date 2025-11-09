@@ -1,0 +1,123 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "api.fullname" . }}
+  labels:
+    {{ include "api.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "api.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "api.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: api
+          image: {{ include "api.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.targetPort }}
+          env:
+            - name: DATABASE_URL
+              value: {{ printf "postgres://%s:%s@%s:%d/%s" .Values.postgres.user .Values.postgres.password .Values.postgres.host .Values.postgres.port .Values.postgres.database | quote }}
+            - name: POSTGRES_HOST
+              value: {{ .Values.postgres.host | quote }}
+            - name: POSTGRES_PORT
+              value: "{{ .Values.postgres.port }}"
+            - name: POSTGRES_USER
+              value: {{ .Values.postgres.user | quote }}
+            - name: POSTGRES_DB
+              value: {{ .Values.postgres.database | quote }}
+            - name: REDIS_URL
+              value: {{ .Values.redis.url | quote }}
+            - name: MINIO_ENDPOINT
+              value: {{ .Values.minio.endpoint | quote }}
+            - name: MINIO_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api.fullname" . }}-secret
+                  key: MINIO_ACCESS_KEY
+            - name: MINIO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api.fullname" . }}-secret
+                  key: MINIO_SECRET_KEY
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api.fullname" . }}-secret
+                  key: JWT_SECRET
+            - name: KMS_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api.fullname" . }}-secret
+                  key: KMS_SECRET
+            - name: TEMPORAL_HOST
+              value: {{ .Values.temporal.host | quote }}
+            - name: TEMPORAL_NAMESPACE
+              value: {{ .Values.temporal.namespace | quote }}
+            - name: TEMPORAL_TASK_QUEUE_CPU
+              value: {{ .Values.temporal.taskQueueCpu | quote }}
+            - name: TEMPORAL_TASK_QUEUE_GPU
+              value: {{ .Values.temporal.taskQueueGpu | quote }}
+            - name: TEMPORAL_WORKFLOW_TASK_QUEUE
+              value: {{ .Values.temporal.workflowQueue | quote }}
+            - name: TEMPORAL_SSE_SECRET
+              value: {{ .Values.temporal.sseSecret | quote }}
+            - name: WORK_DIR
+              value: {{ .Values.workspace.mountPath | quote }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "api.fullname" . }}-config
+          {{- if .Values.resources }}
+          resources:
+{{ toYaml .Values.resources | nindent 12 }}
+          {{- end }}
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          {{- if .Values.workspace.enabled }}
+          volumeMounts:
+            - name: workspace
+              mountPath: {{ .Values.workspace.mountPath }}
+          {{- end }}
+{{- if .Values.workspace.enabled }}
+      volumes:
+        - name: workspace
+          {{- if .Values.workspace.emptyDir }}
+          emptyDir:
+{{ toYaml .Values.workspace.emptyDir | nindent 12 }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+{{- end }}
+{{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 6 }}
+{{- end }}
+{{- if .Values.tolerations }}
+      tolerations:
+{{ toYaml .Values.tolerations | indent 6 }}
+{{- end }}
+{{- if .Values.affinity }}
+      affinity:
+{{ toYaml .Values.affinity | indent 6 }}
+{{- end }}

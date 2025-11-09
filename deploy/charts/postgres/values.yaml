@@ -1,0 +1,26 @@
+replicaCount: 1
+
+image:
+  repository: postgres
+  tag: 15
+  pullPolicy: IfNotPresent
+
+service:
+  port: 5432
+
+resources: {}
+
+auth:
+  username: postgres
+  password: changeme
+  database: youtube_tool
+
+storage:
+  size: 10Gi
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  annotations: {}
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

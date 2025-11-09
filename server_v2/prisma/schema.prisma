@@ -1,0 +1,522 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id          String            @id @default(cuid())
+  name        String
+  slug        String?           @unique
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  memberships Membership[]
+  tasks       Task[]
+  publish     PublishSchedule[]
+  uploads     Upload[]
+  serviceAccounts ServiceAccount[]
+  scopes      TenantScope[]
+  auditLogs   AuditLog[]
+  taskEvents  TaskEvent[]
+  channelBindings ChannelBinding[]
+  publishJobs PublishJob[]
+  experiments Experiment[]
+  notificationRule NotificationRule?
+  usageRecords UsageRecord[]
+  pipelineFingerprints PipelineFingerprint[] @relation("OrganizationPipelineFingerprints")
+  webhookDeliveries WebhookDelivery[]
+  generations Generation[]
+  generationAudits GenerationAudit[]
+  generationCosts GenerationCost[]
+  mediaAssets MediaAsset[]
+}
+
+model Membership {
+  id             String          @id @default(cuid())
+  organizationId String
+  userId         String
+  role           String          @default("VIEWER")
+  createdAt      DateTime        @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+  user         User         @relation(fields: [userId], references: [id])
+
+  @@unique([organizationId, userId])
+}
+
+model Task {
+  id             String     @id @default(cuid())
+  organizationId String
+  title          String
+  description    String?
+  preset         String?
+  params         String
+  status         String     @default("queued")
+  progress       Int        @default(0)
+  eta            String?
+  dependsOn      String?
+  result         String?
+  maxRetries     Int?
+  parentTaskId   String?
+  pipelineStage  String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  idempotency    IdempotencyKey?
+  events         TaskEvent[]
+  childTasks     Task[]     @relation("TaskHierarchy")
+  parentTask     Task?      @relation("TaskHierarchy", fields: [parentTaskId], references: [id])
+  pipelineFingerprint PipelineFingerprint? @relation("TaskPipelineFingerprint")
+  webhookDeliveries WebhookDelivery[]
+  generation Generation?
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@index([organizationId, createdAt, id])
+  @@index([parentTaskId])
+}
+
+model PublishSchedule {
+  id             String   @id @default(cuid())
+  organizationId String
+  platform       String
+  language       String
+  region         String
+  scheduledAt    DateTime
+  owner          String?
+  createdAt      DateTime @default(now())
+  status         String   @default("scheduled")
+  notes          String?
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@index([organizationId, scheduledAt])
+}
+
+model ChannelBinding {
+  id             String           @id @default(cuid())
+  organizationId String
+  provider       String
+  channelId      String
+  channelTitle   String?
+  scopes         String
+  tokensRef      String
+  status         String           @default("active")
+  notes          String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  organization   Organization     @relation(fields: [organizationId], references: [id])
+  publishJobs    PublishJob[]
+
+  @@unique([organizationId, provider, channelId])
+}
+
+model PublishJob {
+  id               String         @id @default(cuid())
+  organizationId   String
+  channelBindingId String
+  taskId           String?
+  artifactName     String?
+  artifactPath     String
+  title            String
+  description      String?
+  tags             String?
+  privacy          String         @default("private")
+  scheduledAt      DateTime
+  status           String         @default("scheduled")
+  notes            String?
+  videoId          String?
+  externalUrl      String?
+  publishedAt      DateTime?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  organization   Organization   @relation(fields: [organizationId], references: [id])
+  channelBinding ChannelBinding @relation(fields: [channelBindingId], references: [id])
+
+  @@index([organizationId, status, scheduledAt])
+}
+
+model NotificationRule {
+  id             String   @id @default(cuid())
+  organizationId String   @unique
+  config         String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+}
+
+model FeatureFlag {
+  id            String   @id @default(cuid())
+  key           String   @unique
+  defaultValue  String
+  orgOverrides  String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model UsageRecord {
+  id             String   @id @default(cuid())
+  organizationId String
+  date           DateTime
+  tasksCount     Int      @default(0)
+  renderSeconds  Float    @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@unique([organizationId, date])
+}
+
+model ABTest {
+  id        String      @id @default(cuid())
+  name      String
+  createdAt DateTime    @default(now())
+  samples   ABSample[]
+}
+
+model ABSample {
+  id      String  @id @default(cuid())
+  testId  String
+  title   String
+  clicks  Int     @default(0)
+  views   Int     @default(0)
+  createdAt DateTime @default(now())
+
+  test ABTest @relation(fields: [testId], references: [id])
+}
+
+model IdempotencyKey {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  taskId    String   @unique
+  task      Task     @relation(fields: [taskId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model PipelineFingerprint {
+  id             String   @id @default(cuid())
+  organizationId String
+  fingerprint    String
+  taskId         String   @unique
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation("OrganizationPipelineFingerprints", fields: [organizationId], references: [id])
+  task         Task         @relation("TaskPipelineFingerprint", fields: [taskId], references: [id])
+
+  @@unique([organizationId, fingerprint])
+}
+
+model WebhookDelivery {
+  id               String    @id @default(cuid())
+  taskId           String
+  organizationId   String
+  targetUrl        String
+  status           String    @default("pending")
+  attempts         Int       @default(0)
+  maxAttempts      Int       @default(0)
+  lastResponseCode Int?
+  lastDurationMs   Int?
+  lastError        String?
+  payload          String
+  signature        String
+  secretCipher     String?
+  retryOfId        String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  completedAt      DateTime?
+
+  task         Task         @relation(fields: [taskId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id])
+  retryOf      WebhookDelivery? @relation("WebhookRedelivery", fields: [retryOfId], references: [id])
+  retryChildren WebhookDelivery[] @relation("WebhookRedelivery")
+
+  @@index([organizationId, createdAt])
+  @@index([taskId, createdAt])
+}
+
+model Generation {
+  id               String   @id @default(cuid())
+  taskId           String   @unique
+  organizationId   String
+  tenantId         String
+  provider         String
+  policy           String
+  status           String   @default("pending")
+  prompt           String
+  negativePrompt   String?
+  durationSec      Int?
+  resolution       String?
+  fps              Int?
+  aspectRatio      String?
+  seed             Int?
+  costCents        Int?
+  externalId       String?
+  metadata         String?
+  pricePerMinCents Int      @default(0)
+  estimatedMinutes Int      @default(0)
+  billedMinutes    Int      @default(0)
+  billedCents      Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  task         Task         @relation(fields: [taskId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id])
+  events       GenerationEvent[]
+  assets       GenerationAsset[]
+  audits       GenerationAudit[]
+
+  @@index([organizationId, createdAt])
+}
+
+model GenerationCost {
+  id             String       @id @default(cuid())
+  organizationId String
+  provider       String
+  policy         String
+  periodStart    DateTime
+  periodEnd      DateTime
+  successRate    Float        @default(0)
+  tasks          Int          @default(0)
+  billedMinutes  Int          @default(0)
+  costCents      Int          @default(0)
+  createdAt      DateTime     @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@index([organizationId, periodStart])
+  @@index([provider, periodStart])
+  @@unique([organizationId, provider, policy, periodStart, periodEnd])
+}
+
+model GenerationEvent {
+  id            String   @id @default(cuid())
+  generationId  String
+  status        String
+  step          String
+  payload       String?
+  createdAt     DateTime @default(now())
+
+  generation Generation @relation(fields: [generationId], references: [id])
+
+  @@index([generationId, createdAt])
+}
+
+model GenerationAsset {
+  id            String   @id @default(cuid())
+  generationId  String
+  kind          String
+  path          String
+  size          Int
+  hash          String?
+  metadata      String?
+  createdAt     DateTime @default(now())
+
+  generation Generation @relation(fields: [generationId], references: [id])
+
+  @@index([generationId])
+}
+
+model GenerationAudit {
+  id             String   @id @default(cuid())
+  generationId   String
+  organizationId String
+  event          String
+  details        String?
+  createdAt      DateTime @default(now())
+
+  generation   Generation   @relation(fields: [generationId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@index([generationId, createdAt])
+  @@index([organizationId, createdAt])
+}
+
+model Experiment {
+  id             String     @id @default(cuid())
+  organizationId String
+  name           String
+  metricPrimary  String
+  explorationRate Float
+  minImpressions Int
+  cooldownMin     Int
+  status         String     @default("running")
+  createdAt      DateTime   @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+  variants     Variant[]
+  bandit       BanditState?
+
+  @@index([organizationId])
+}
+
+model Variant {
+  id           String     @id @default(cuid())
+  experimentId String
+  name         String
+  description  String?
+  impressions  Int        @default(0)
+  conversions  Int        @default(0)
+  createdAt    DateTime   @default(now())
+
+  experiment Experiment @relation(fields: [experimentId], references: [id])
+  bestState  BanditState? @relation("BanditWinner")
+
+  @@index([experimentId])
+}
+
+model BanditState {
+  id            String     @id @default(cuid())
+  experimentId  String     @unique
+  lastWinnerId  String?   @unique
+  lastCheckedAt DateTime?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  experiment Experiment @relation(fields: [experimentId], references: [id])
+  lastWinner  Variant?     @relation("BanditWinner", fields: [lastWinnerId], references: [id])
+}
+
+model MediaAsset {
+  id             String          @id @default(cuid())
+  organizationId String
+  kind           String
+  path           String
+  metadata       String?
+  parentAssetId  String?
+  createdAt      DateTime        @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+  parentAsset   MediaAsset?    @relation("AssetHierarchy", fields: [parentAssetId], references: [id])
+  childAssets   MediaAsset[]   @relation("AssetHierarchy")
+  embedding    MediaEmbedding?
+  license      MediaLicense?
+}
+
+model MediaEmbedding {
+  id        String    @id @default(cuid())
+  assetId   String    @unique
+  vector    String
+  model     String
+  createdAt DateTime  @default(now())
+
+  asset MediaAsset @relation(fields: [assetId], references: [id])
+}
+
+model MediaLicense {
+  id          String   @id @default(cuid())
+  assetId     String   @unique
+  provider    String
+  licenseType String
+  validUntil  DateTime?
+  details     String?
+
+  asset MediaAsset @relation(fields: [assetId], references: [id])
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  memberships  Membership[]
+  auditLogs    AuditLog[] @relation("UserAuditLogs")
+  uploads      Upload[]
+}
+
+model TaskEvent {
+  id        String   @id @default(cuid())
+  taskId    String
+  organizationId String
+  task      Task     @relation(fields: [taskId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id])
+  type      String
+  payload   String?
+  actor     String?
+  createdAt DateTime @default(now())
+
+  @@index([taskId, createdAt])
+  @@index([organizationId, createdAt])
+}
+
+model Upload {
+  id                       String   @id @default(cuid())
+  organizationId           String
+  path                     String
+  relativePath             String
+  hash                     String?
+  size                     Int
+  mimeType                 String?
+  originalName             String?
+  createdByUserId          String?
+  createdByServiceAccountId String?
+  createdAt                DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+  createdByUser User? @relation(fields: [createdByUserId], references: [id])
+  createdByServiceAccount ServiceAccount? @relation(fields: [createdByServiceAccountId], references: [id])
+}
+
+model ServiceAccount {
+  id             String   @id @default(cuid())
+  organizationId String
+  name           String
+  description    String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+  apiKeys      ApiKey[]
+  auditLogs    AuditLog[]
+  uploads      Upload[]
+}
+
+model ApiKey {
+  id               String   @id @default(cuid())
+  serviceAccountId String
+  keyHash          String   @unique
+  keyPrefix        String
+  lastFour         String
+  lastUsedAt       DateTime?
+  createdAt        DateTime @default(now())
+  revokedAt        DateTime?
+
+  serviceAccount ServiceAccount @relation(fields: [serviceAccountId], references: [id])
+
+  @@index([keyPrefix])
+}
+
+model TenantScope {
+  id             String   @id @default(cuid())
+  organizationId String
+  scope          String
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@unique([organizationId, scope])
+}
+
+model AuditLog {
+  id                     String   @id @default(cuid())
+  organizationId         String
+  actorUserId            String?
+  actorServiceAccountId  String?
+  action                 String
+  target                 String?
+  payload                String?
+  ip                     String?
+  userAgent              String?
+  createdAt              DateTime @default(now())
+
+  organization       Organization   @relation(fields: [organizationId], references: [id])
+  actorUser          User?          @relation("UserAuditLogs", fields: [actorUserId], references: [id])
+  actorServiceAccount ServiceAccount? @relation(fields: [actorServiceAccountId], references: [id])
+
+  @@index([organizationId, createdAt])
+}

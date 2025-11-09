@@ -1,0 +1,93 @@
+name: CI/CD
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      REGISTRY_URL: ${{ secrets.REGISTRY_URL || 'ghcr.io/example' }}
+      IMAGE_TAG: ${{ secrets.IMAGE_TAG || github.sha }}
+      DOCKER_PUSH: ${{ secrets.REGISTRY_USERNAME != '' && secrets.REGISTRY_PASSWORD != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            server_v2/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Install backend dependencies
+        run: |
+          cd server_v2
+          npm ci
+
+      - name: Build backend
+        run: |
+          cd server_v2
+          npm run build
+
+      - name: Derive registry host
+        if: ${{ env.REGISTRY_URL != '' }}
+        shell: bash
+        run: |
+          echo "REGISTRY_HOST=$(echo '${{ env.REGISTRY_URL }}' | cut -d'/' -f1)" >> $GITHUB_ENV
+
+      - name: Log in to registry
+        if: ${{ env.DOCKER_PUSH == 'true' }}
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY_HOST }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build & push API image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.api
+          push: ${{ env.DOCKER_PUSH }}
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            ${{ env.REGISTRY_URL }}/api:${{ env.IMAGE_TAG }}
+
+      - name: Build & push worker CPU image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.worker
+          push: ${{ env.DOCKER_PUSH }}
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            ${{ env.REGISTRY_URL }}/worker-cpu:${{ env.IMAGE_TAG }}
+          build-args: |
+            WORKER_TYPE=cpu
+
+      - name: Build & push worker GPU image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.worker
+          push: ${{ env.DOCKER_PUSH }}
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            ${{ env.REGISTRY_URL }}/worker-gpu:${{ env.IMAGE_TAG }}
+          build-args: |
+            WORKER_TYPE=gpu

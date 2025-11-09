@@ -1,0 +1,44 @@
+{
+  "mock": {
+    "endpoint": "http://localhost/mock",
+    "model": "mock-video-v1",
+    "limit": 120,
+    "cost": 0
+  },
+  "luma": {
+    "endpoint": "https://api.luma.ai/v1/video",
+    "model": "luma-default",
+    "limit": 60,
+    "cost": 12
+  },
+  "runway": {
+    "endpoint": "https://api.runwayml.com/v1/video",
+    "model": "gen3-flash",
+    "limit": 45,
+    "cost": 18
+  },
+  "haiper": {
+    "endpoint": "https://api.haiper.com/v1/render",
+    "model": "haiper-studio",
+    "limit": 90,
+    "cost": 8
+  },
+  "kling": {
+    "endpoint": "https://kling.ai/api/v1/video",
+    "model": "kling-studio",
+    "limit": 60,
+    "cost": 14
+  },
+  "replicate": {
+    "endpoint": "https://api.replicate.com/v1/predictions",
+    "model": "model/default",
+    "limit": 30,
+    "cost": 20
+  },
+  "domoai": {
+    "endpoint": "https://api.domo.ai/v2/video",
+    "model": "domoai-creative",
+    "limit": 30,
+    "cost": 16
+  }
+}

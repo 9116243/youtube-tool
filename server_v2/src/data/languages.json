@@ -1,0 +1,444 @@
+[
+  {
+    "code": "zh-CN",
+    "iso639_1": "zh",
+    "name": "Chinese (Simplified)",
+    "englishName": "Chinese (Simplified)",
+    "flag": "CN",
+    "ttsHint": ["chinese", "zh", "zh-CN"]
+  },
+  {
+    "code": "zh-TW",
+    "iso639_1": "zh",
+    "name": "Chinese (Traditional)",
+    "englishName": "Chinese (Traditional)",
+    "flag": "TW",
+    "ttsHint": ["zh-TW", "traditional"]
+  },
+  {
+    "code": "en-US",
+    "iso639_1": "en",
+    "name": "English (US)",
+    "englishName": "English (US)",
+    "flag": "US",
+    "ttsHint": ["en", "us"]
+  },
+  {
+    "code": "en-GB",
+    "iso639_1": "en",
+    "name": "English (UK)",
+    "englishName": "English (UK)",
+    "flag": "GB",
+    "ttsHint": ["en", "gb", "uk"]
+  },
+  {
+    "code": "de-DE",
+    "iso639_1": "de",
+    "name": "German",
+    "englishName": "German",
+    "flag": "DE"
+  },
+  {
+    "code": "fr-FR",
+    "iso639_1": "fr",
+    "name": "French",
+    "englishName": "French",
+    "flag": "FR"
+  },
+  {
+    "code": "es-ES",
+    "iso639_1": "es",
+    "name": "Spanish (EU)",
+    "englishName": "Spanish (EU)",
+    "flag": "ES"
+  },
+  {
+    "code": "es-MX",
+    "iso639_1": "es",
+    "name": "Spanish (MX)",
+    "englishName": "Spanish (MX)",
+    "flag": "MX"
+  },
+  {
+    "code": "pt-BR",
+    "iso639_1": "pt",
+    "name": "Portuguese (BR)",
+    "englishName": "Portuguese (BR)",
+    "flag": "BR"
+  },
+  {
+    "code": "pt-PT",
+    "iso639_1": "pt",
+    "name": "Portuguese (EU)",
+    "englishName": "Portuguese (EU)",
+    "flag": "PT"
+  },
+  {
+    "code": "it-IT",
+    "iso639_1": "it",
+    "name": "Italian",
+    "englishName": "Italian",
+    "flag": "IT"
+  },
+  {
+    "code": "ru-RU",
+    "iso639_1": "ru",
+    "name": "Russian",
+    "englishName": "Russian",
+    "flag": "RU"
+  },
+  {
+    "code": "ja-JP",
+    "iso639_1": "ja",
+    "name": "Japanese",
+    "englishName": "Japanese",
+    "flag": "JP"
+  },
+  {
+    "code": "ko-KR",
+    "iso639_1": "ko",
+    "name": "Korean",
+    "englishName": "Korean",
+    "flag": "KR"
+  },
+  {
+    "code": "vi-VN",
+    "iso639_1": "vi",
+    "name": "Vietnamese",
+    "englishName": "Vietnamese",
+    "flag": "VN"
+  },
+  {
+    "code": "th-TH",
+    "iso639_1": "th",
+    "name": "Thai",
+    "englishName": "Thai",
+    "flag": "TH"
+  },
+  {
+    "code": "id-ID",
+    "iso639_1": "id",
+    "name": "Indonesian",
+    "englishName": "Indonesian",
+    "flag": "ID"
+  },
+  {
+    "code": "ms-MY",
+    "iso639_1": "ms",
+    "name": "Malay",
+    "englishName": "Malay",
+    "flag": "MY"
+  },
+  {
+    "code": "hi-IN",
+    "iso639_1": "hi",
+    "name": "Hindi",
+    "englishName": "Hindi",
+    "flag": "IN"
+  },
+  {
+    "code": "bn-BD",
+    "iso639_1": "bn",
+    "name": "Bengali",
+    "englishName": "Bengali",
+    "flag": "BD"
+  },
+  {
+    "code": "ur-PK",
+    "iso639_1": "ur",
+    "name": "Urdu",
+    "englishName": "Urdu",
+    "flag": "PK",
+    "rtl": true
+  },
+  {
+    "code": "ta-IN",
+    "iso639_1": "ta",
+    "name": "Tamil",
+    "englishName": "Tamil",
+    "flag": "IN"
+  },
+  {
+    "code": "te-IN",
+    "iso639_1": "te",
+    "name": "Telugu",
+    "englishName": "Telugu",
+    "flag": "IN"
+  },
+  {
+    "code": "mr-IN",
+    "iso639_1": "mr",
+    "name": "Marathi",
+    "englishName": "Marathi",
+    "flag": "IN"
+  },
+  {
+    "code": "gu-IN",
+    "iso639_1": "gu",
+    "name": "Gujarati",
+    "englishName": "Gujarati",
+    "flag": "IN"
+  },
+  {
+    "code": "kn-IN",
+    "iso639_1": "kn",
+    "name": "Kannada",
+    "englishName": "Kannada",
+    "flag": "IN"
+  },
+  {
+    "code": "pa-IN",
+    "iso639_1": "pa",
+    "name": "Punjabi",
+    "englishName": "Punjabi",
+    "flag": "IN"
+  },
+  {
+    "code": "ne-NP",
+    "iso639_1": "ne",
+    "name": "Nepali",
+    "englishName": "Nepali",
+    "flag": "NP"
+  },
+  {
+    "code": "si-LK",
+    "iso639_1": "si",
+    "name": "Sinhala",
+    "englishName": "Sinhala",
+    "flag": "LK"
+  },
+  {
+    "code": "ar-SA",
+    "iso639_1": "ar",
+    "name": "Arabic",
+    "englishName": "Arabic",
+    "flag": "SA",
+    "rtl": true
+  },
+  {
+    "code": "fa-IR",
+    "iso639_1": "fa",
+    "name": "Persian",
+    "englishName": "Persian",
+    "flag": "IR",
+    "rtl": true
+  },
+  {
+    "code": "he-IL",
+    "iso639_1": "he",
+    "name": "Hebrew",
+    "englishName": "Hebrew",
+    "flag": "IL",
+    "rtl": true
+  },
+  {
+    "code": "tr-TR",
+    "iso639_1": "tr",
+    "name": "Turkish",
+    "englishName": "Turkish",
+    "flag": "TR"
+  },
+  {
+    "code": "pl-PL",
+    "iso639_1": "pl",
+    "name": "Polish",
+    "englishName": "Polish",
+    "flag": "PL"
+  },
+  {
+    "code": "nl-NL",
+    "iso639_1": "nl",
+    "name": "Dutch",
+    "englishName": "Dutch",
+    "flag": "NL"
+  },
+  {
+    "code": "sv-SE",
+    "iso639_1": "sv",
+    "name": "Swedish",
+    "englishName": "Swedish",
+    "flag": "SE"
+  },
+  {
+    "code": "no-NO",
+    "iso639_1": "no",
+    "name": "Norwegian",
+    "englishName": "Norwegian",
+    "flag": "NO"
+  },
+  {
+    "code": "da-DK",
+    "iso639_1": "da",
+    "name": "Danish",
+    "englishName": "Danish",
+    "flag": "DK"
+  },
+  {
+    "code": "fi-FI",
+    "iso639_1": "fi",
+    "name": "Finnish",
+    "englishName": "Finnish",
+    "flag": "FI"
+  },
+  {
+    "code": "cs-CZ",
+    "iso639_1": "cs",
+    "name": "Czech",
+    "englishName": "Czech",
+    "flag": "CZ"
+  },
+  {
+    "code": "ro-RO",
+    "iso639_1": "ro",
+    "name": "Romanian",
+    "englishName": "Romanian",
+    "flag": "RO"
+  },
+  {
+    "code": "uk-UA",
+    "iso639_1": "uk",
+    "name": "Ukrainian",
+    "englishName": "Ukrainian",
+    "flag": "UA"
+  },
+  {
+    "code": "el-GR",
+    "iso639_1": "el",
+    "name": "Greek",
+    "englishName": "Greek",
+    "flag": "GR"
+  },
+  {
+    "code": "hu-HU",
+    "iso639_1": "hu",
+    "name": "Hungarian",
+    "englishName": "Hungarian",
+    "flag": "HU"
+  },
+  {
+    "code": "bg-BG",
+    "iso639_1": "bg",
+    "name": "Bulgarian",
+    "englishName": "Bulgarian",
+    "flag": "BG"
+  },
+  {
+    "code": "sr-RS",
+    "iso639_1": "sr",
+    "name": "Serbian",
+    "englishName": "Serbian",
+    "flag": "RS"
+  },
+  {
+    "code": "hr-HR",
+    "iso639_1": "hr",
+    "name": "Croatian",
+    "englishName": "Croatian",
+    "flag": "HR"
+  },
+  {
+    "code": "sk-SK",
+    "iso639_1": "sk",
+    "name": "Slovak",
+    "englishName": "Slovak",
+    "flag": "SK"
+  },
+  {
+    "code": "sl-SI",
+    "iso639_1": "sl",
+    "name": "Slovene",
+    "englishName": "Slovene",
+    "flag": "SI"
+  },
+  {
+    "code": "mk-MK",
+    "iso639_1": "mk",
+    "name": "Macedonian",
+    "englishName": "Macedonian",
+    "flag": "MK"
+  },
+  {
+    "code": "lt-LT",
+    "iso639_1": "lt",
+    "name": "Lithuanian",
+    "englishName": "Lithuanian",
+    "flag": "LT"
+  },
+  {
+    "code": "lv-LV",
+    "iso639_1": "lv",
+    "name": "Latvian",
+    "englishName": "Latvian",
+    "flag": "LV"
+  },
+  {
+    "code": "et-EE",
+    "iso639_1": "et",
+    "name": "Estonian",
+    "englishName": "Estonian",
+    "flag": "EE"
+  },
+  {
+    "code": "az-AZ",
+    "iso639_1": "az",
+    "name": "Azerbaijani",
+    "englishName": "Azerbaijani",
+    "flag": "AZ"
+  },
+  {
+    "code": "kk-KZ",
+    "iso639_1": "kk",
+    "name": "Kazakh",
+    "englishName": "Kazakh",
+    "flag": "KZ"
+  },
+  {
+    "code": "ka-GE",
+    "iso639_1": "ka",
+    "name": "Georgian",
+    "englishName": "Georgian",
+    "flag": "GE"
+  },
+  {
+    "code": "hy-AM",
+    "iso639_1": "hy",
+    "name": "Armenian",
+    "englishName": "Armenian",
+    "flag": "AM"
+  },
+  {
+    "code": "am-ET",
+    "iso639_1": "am",
+    "name": "Amharic",
+    "englishName": "Amharic",
+    "flag": "ET"
+  },
+  {
+    "code": "sw-KE",
+    "iso639_1": "sw",
+    "name": "Swahili",
+    "englishName": "Swahili",
+    "flag": "KE"
+  },
+  {
+    "code": "af-ZA",
+    "iso639_1": "af",
+    "name": "Afrikaans",
+    "englishName": "Afrikaans",
+    "flag": "ZA"
+  },
+  {
+    "code": "zu-ZA",
+    "iso639_1": "zu",
+    "name": "Zulu",
+    "englishName": "Zulu",
+    "flag": "ZA"
+  },
+  {
+    "code": "fil-PH",
+    "iso639_1": "fil",
+    "name": "Filipino",
+    "englishName": "Filipino",
+    "flag": "PH"
+  }
+]

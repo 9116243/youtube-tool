@@ -1,0 +1,38 @@
+replicaCount: 1
+
+image:
+  repository: temporalio/auto-setup
+  tag: 1.21.0
+  pullPolicy: IfNotPresent
+
+service:
+  port: 7233
+
+resources: {}
+
+postgres:
+  host: postgres.default.svc.cluster.local
+  port: 5432
+  user: postgres
+  password: changeme
+  database: temporal
+
+redis:
+  host: redis.default.svc.cluster.local
+  port: 6379
+  password: ""
+
+minio:
+  endpoint: http://minio.default.svc.cluster.local:9000
+  accessKey: minio
+  secretKey: minio123
+
+env:
+  TEMPORAL_CLUSTER_NAME: default
+  TEMPORAL_NAMESPACE: default
+  TEMPORAL_BROADCAST_ADDRESS: 0.0.0.0
+  TEMPORAL_LOG_LEVEL: info
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

@@ -1,0 +1,8 @@
+resources:
+  - ../../apps/api.yaml
+  - ../../apps/worker-cpu.yaml
+  - ../../apps/worker-gpu.yaml
+  - ../../apps/temporal.yaml
+  - ../../apps/redis.yaml
+  - ../../apps/postgres.yaml
+  - ../../apps/minio.yaml

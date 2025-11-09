@@ -1,0 +1,434 @@
+[
+  {
+    "id": "vivid-hero-01",
+    "assets": {
+      "avif": {
+        "sm": "/public/brand/hero/vivid-hero-01-sm.avif",
+        "md": "/public/brand/hero/vivid-hero-01-md.avif",
+        "lg": "/public/brand/hero/vivid-hero-01-lg.avif",
+        "xl": "/public/brand/hero/vivid-hero-01-xl.avif"
+      },
+      "webp": {
+        "sm": "/public/brand/hero/vivid-hero-01-sm.webp",
+        "md": "/public/brand/hero/vivid-hero-01-md.webp",
+        "lg": "/public/brand/hero/vivid-hero-01-lg.webp",
+        "xl": "/public/brand/hero/vivid-hero-01-xl.webp"
+      }
+    },
+    "lqip": "",
+    "locale": {
+      "zh": {
+        "title": "VividAI 视觉 01",
+        "subtitle": "高帧率 · 高质感 · 高转化",
+        "ctaText": "立即体验",
+        "ctaHref": "/"
+      },
+      "en": {
+        "title": "VividAI Visual 01",
+        "subtitle": "Cinematic speed. Creator-grade quality.",
+        "ctaText": "Try now",
+        "ctaHref": "/"
+      }
+    },
+    "alt": {
+      "zh": "VividAI 品牌主视觉",
+      "en": "VividAI key visual"
+    }
+  },
+  {
+    "id": "vivid-hero-02",
+    "assets": {
+      "avif": {
+        "sm": "/public/brand/hero/vivid-hero-02-sm.avif",
+        "md": "/public/brand/hero/vivid-hero-02-md.avif",
+        "lg": "/public/brand/hero/vivid-hero-02-lg.avif",
+        "xl": "/public/brand/hero/vivid-hero-02-xl.avif"
+      },
+      "webp": {
+        "sm": "/public/brand/hero/vivid-hero-02-sm.webp",
+        "md": "/public/brand/hero/vivid-hero-02-md.webp",
+        "lg": "/public/brand/hero/vivid-hero-02-lg.webp",
+        "xl": "/public/brand/hero/vivid-hero-02-xl.webp"
+      }
+    },
+    "lqip": "",
+    "locale": {
+      "zh": {
+        "title": "VividAI 视觉 02",
+        "subtitle": "高帧率 · 高质感 · 高转化",
+        "ctaText": "立即体验",
+        "ctaHref": "/"
+      },
+      "en": {
+        "title": "VividAI Visual 02",
+        "subtitle": "Cinematic speed. Creator-grade quality.",
+        "ctaText": "Try now",
+        "ctaHref": "/"
+      }
+    },
+    "alt": {
+      "zh": "VividAI 品牌主视觉",
+      "en": "VividAI key visual"
+    }
+  },
+  {
+    "id": "vivid-hero-03",
+    "assets": {
+      "avif": {
+        "sm": "/public/brand/hero/vivid-hero-03-sm.avif",
+        "md": "/public/brand/hero/vivid-hero-03-md.avif",
+        "lg": "/public/brand/hero/vivid-hero-03-lg.avif",
+        "xl": "/public/brand/hero/vivid-hero-03-xl.avif"
+      },
+      "webp": {
+        "sm": "/public/brand/hero/vivid-hero-03-sm.webp",
+        "md": "/public/brand/hero/vivid-hero-03-md.webp",
+        "lg": "/public/brand/hero/vivid-hero-03-lg.webp",
+        "xl": "/public/brand/hero/vivid-hero-03-xl.webp"
+      }
+    },
+    "lqip": "",
+    "locale": {
+      "zh": {
+        "title": "VividAI 视觉 03",
+        "subtitle": "高帧率 · 高质感 · 高转化",
+        "ctaText": "立即体验",
+        "ctaHref": "/"
+      },
+      "en": {
+        "title": "VividAI Visual 03",
+        "subtitle": "Cinematic speed. Creator-grade quality.",
+        "ctaText": "Try now",
+        "ctaHref": "/"
+      }
+    },
+    "alt": {
+      "zh": "VividAI 品牌主视觉",
+      "en": "VividAI key visual"
+    }
+  },
+  {
+    "id": "vivid-hero-04",
+    "assets": {
+      "avif": {
+        "sm": "/public/brand/hero/vivid-hero-04-sm.avif",
+        "md": "/public/brand/hero/vivid-hero-04-md.avif",
+        "lg": "/public/brand/hero/vivid-hero-04-lg.avif",
+        "xl": "/public/brand/hero/vivid-hero-04-xl.avif"
+      },
+      "webp": {
+        "sm": "/public/brand/hero/vivid-hero-04-sm.webp",
+        "md": "/public/brand/hero/vivid-hero-04-md.webp",
+        "lg": "/public/brand/hero/vivid-hero-04-lg.webp",
+        "xl": "/public/brand/hero/vivid-hero-04-xl.webp"
+      }
+    },
+    "lqip": "",
+    "locale": {
+      "zh": {
+        "title": "VividAI 视觉 04",
+        "subtitle": "高帧率 · 高质感 · 高转化",
+        "ctaText": "立即体验",
+        "ctaHref": "/"
+      },
+      "en": {
+        "title": "VividAI Visual 04",
+        "subtitle": "Cinematic speed. Creator-grade quality.",
+        "ctaText": "Try now",
+        "ctaHref": "/"
+      }
+    },
+    "alt": {
+      "zh": "VividAI 品牌主视觉",
+      "en": "VividAI key visual"
+    }
+  },
+  {
+    "id": "vivid-hero-05",
+    "assets": {
+      "avif": {
+        "sm": "/public/brand/hero/vivid-hero-05-sm.avif",
+        "md": "/public/brand/hero/vivid-hero-05-md.avif",
+        "lg": "/public/brand/hero/vivid-hero-05-lg.avif",
+        "xl": "/public/brand/hero/vivid-hero-05-xl.avif"
+      },
+      "webp": {
+        "sm": "/public/brand/hero/vivid-hero-05-sm.webp",
+        "md": "/public/brand/hero/vivid-hero-05-md.webp",
+        "lg": "/public/brand/hero/vivid-hero-05-lg.webp",
+        "xl": "/public/brand/hero/vivid-hero-05-xl.webp"
+      }
+    },
+    "lqip": "",
+    "locale": {
+      "zh": {
+        "title": "VividAI 视觉 05",
+        "subtitle": "高帧率 · 高质感 · 高转化",
+        "ctaText": "立即体验",
+        "ctaHref": "/"
+      },
+      "en": {
+        "title": "VividAI Visual 05",
+        "subtitle": "Cinematic speed. Creator-grade quality.",
+        "ctaText": "Try now",
+        "ctaHref": "/"
+      }
+    },
+    "alt": {
+      "zh": "VividAI 品牌主视觉",
+      "en": "VividAI key visual"
+    }
+  },
+  {
+    "id": "vivid-hero-06",
+    "assets": {
+      "avif": {
+        "sm": "/public/brand/hero/vivid-hero-06-sm.avif",
+        "md": "/public/brand/hero/vivid-hero-06-md.avif",
+        "lg": "/public/brand/hero/vivid-hero-06-lg.avif",
+        "xl": "/public/brand/hero/vivid-hero-06-xl.avif"
+      },
+      "webp": {
+        "sm": "/public/brand/hero/vivid-hero-06-sm.webp",
+        "md": "/public/brand/hero/vivid-hero-06-md.webp",
+        "lg": "/public/brand/hero/vivid-hero-06-lg.webp",
+        "xl": "/public/brand/hero/vivid-hero-06-xl.webp"
+      }
+    },
+    "lqip": "",
+    "locale": {
+      "zh": {
+        "title": "VividAI 视觉 06",
+        "subtitle": "高帧率 · 高质感 · 高转化",
+        "ctaText": "立即体验",
+        "ctaHref": "/"
+      },
+      "en": {
+        "title": "VividAI Visual 06",
+        "subtitle": "Cinematic speed. Creator-grade quality.",
+        "ctaText": "Try now",
+        "ctaHref": "/"
+      }
+    },
+    "alt": {
+      "zh": "VividAI 品牌主视觉",
+      "en": "VividAI key visual"
+    }
+  },
+  {
+    "id": "vivid-hero-07",
+    "assets": {
+      "avif": {
+        "sm": "/public/brand/hero/vivid-hero-07-sm.avif",
+        "md": "/public/brand/hero/vivid-hero-07-md.avif",
+        "lg": "/public/brand/hero/vivid-hero-07-lg.avif",
+        "xl": "/public/brand/hero/vivid-hero-07-xl.avif"
+      },
+      "webp": {
+        "sm": "/public/brand/hero/vivid-hero-07-sm.webp",
+        "md": "/public/brand/hero/vivid-hero-07-md.webp",
+        "lg": "/public/brand/hero/vivid-hero-07-lg.webp",
+        "xl": "/public/brand/hero/vivid-hero-07-xl.webp"
+      }
+    },
+    "lqip": "",
+    "locale": {
+      "zh": {
+        "title": "VividAI 视觉 07",
+        "subtitle": "高帧率 · 高质感 · 高转化",
+        "ctaText": "立即体验",
+        "ctaHref": "/"
+      },
+      "en": {
+        "title": "VividAI Visual 07",
+        "subtitle": "Cinematic speed. Creator-grade quality.",
+        "ctaText": "Try now",
+        "ctaHref": "/"
+      }
+    },
+    "alt": {
+      "zh": "VividAI 品牌主视觉",
+      "en": "VividAI key visual"
+    }
+  },
+  {
+    "id": "vivid-hero-08",
+    "assets": {
+      "avif": {
+        "sm": "/public/brand/hero/vivid-hero-08-sm.avif",
+        "md": "/public/brand/hero/vivid-hero-08-md.avif",
+        "lg": "/public/brand/hero/vivid-hero-08-lg.avif",
+        "xl": "/public/brand/hero/vivid-hero-08-xl.avif"
+      },
+      "webp": {
+        "sm": "/public/brand/hero/vivid-hero-08-sm.webp",
+        "md": "/public/brand/hero/vivid-hero-08-md.webp",
+        "lg": "/public/brand/hero/vivid-hero-08-lg.webp",
+        "xl": "/public/brand/hero/vivid-hero-08-xl.webp"
+      }
+    },
+    "lqip": "",
+    "locale": {
+      "zh": {
+        "title": "VividAI 视觉 08",
+        "subtitle": "高帧率 · 高质感 · 高转化",
+        "ctaText": "立即体验",
+        "ctaHref": "/"
+      },
+      "en": {
+        "title": "VividAI Visual 08",
+        "subtitle": "Cinematic speed. Creator-grade quality.",
+        "ctaText": "Try now",
+        "ctaHref": "/"
+      }
+    },
+    "alt": {
+      "zh": "VividAI 品牌主视觉",
+      "en": "VividAI key visual"
+    }
+  },
+  {
+    "id": "vivid-hero-09",
+    "assets": {
+      "avif": {
+        "sm": "/public/brand/hero/vivid-hero-09-sm.avif",
+        "md": "/public/brand/hero/vivid-hero-09-md.avif",
+        "lg": "/public/brand/hero/vivid-hero-09-lg.avif",
+        "xl": "/public/brand/hero/vivid-hero-09-xl.avif"
+      },
+      "webp": {
+        "sm": "/public/brand/hero/vivid-hero-09-sm.webp",
+        "md": "/public/brand/hero/vivid-hero-09-md.webp",
+        "lg": "/public/brand/hero/vivid-hero-09-lg.webp",
+        "xl": "/public/brand/hero/vivid-hero-09-xl.webp"
+      }
+    },
+    "lqip": "",
+    "locale": {
+      "zh": {
+        "title": "VividAI 视觉 09",
+        "subtitle": "高帧率 · 高质感 · 高转化",
+        "ctaText": "立即体验",
+        "ctaHref": "/"
+      },
+      "en": {
+        "title": "VividAI Visual 09",
+        "subtitle": "Cinematic speed. Creator-grade quality.",
+        "ctaText": "Try now",
+        "ctaHref": "/"
+      }
+    },
+    "alt": {
+      "zh": "VividAI 品牌主视觉",
+      "en": "VividAI key visual"
+    }
+  },
+  {
+    "id": "vivid-hero-10",
+    "assets": {
+      "avif": {
+        "sm": "/public/brand/hero/vivid-hero-10-sm.avif",
+        "md": "/public/brand/hero/vivid-hero-10-md.avif",
+        "lg": "/public/brand/hero/vivid-hero-10-lg.avif",
+        "xl": "/public/brand/hero/vivid-hero-10-xl.avif"
+      },
+      "webp": {
+        "sm": "/public/brand/hero/vivid-hero-10-sm.webp",
+        "md": "/public/brand/hero/vivid-hero-10-md.webp",
+        "lg": "/public/brand/hero/vivid-hero-10-lg.webp",
+        "xl": "/public/brand/hero/vivid-hero-10-xl.webp"
+      }
+    },
+    "lqip": "",
+    "locale": {
+      "zh": {
+        "title": "VividAI 视觉 10",
+        "subtitle": "高帧率 · 高质感 · 高转化",
+        "ctaText": "立即体验",
+        "ctaHref": "/"
+      },
+      "en": {
+        "title": "VividAI Visual 10",
+        "subtitle": "Cinematic speed. Creator-grade quality.",
+        "ctaText": "Try now",
+        "ctaHref": "/"
+      }
+    },
+    "alt": {
+      "zh": "VividAI 品牌主视觉",
+      "en": "VividAI key visual"
+    }
+  },
+  {
+    "id": "vivid-hero-11",
+    "assets": {
+      "avif": {
+        "sm": "/public/brand/hero/vivid-hero-11-sm.avif",
+        "md": "/public/brand/hero/vivid-hero-11-md.avif",
+        "lg": "/public/brand/hero/vivid-hero-11-lg.avif",
+        "xl": "/public/brand/hero/vivid-hero-11-xl.avif"
+      },
+      "webp": {
+        "sm": "/public/brand/hero/vivid-hero-11-sm.webp",
+        "md": "/public/brand/hero/vivid-hero-11-md.webp",
+        "lg": "/public/brand/hero/vivid-hero-11-lg.webp",
+        "xl": "/public/brand/hero/vivid-hero-11-xl.webp"
+      }
+    },
+    "lqip": "",
+    "locale": {
+      "zh": {
+        "title": "VividAI 视觉 11",
+        "subtitle": "高帧率 · 高质感 · 高转化",
+        "ctaText": "立即体验",
+        "ctaHref": "/"
+      },
+      "en": {
+        "title": "VividAI Visual 11",
+        "subtitle": "Cinematic speed. Creator-grade quality.",
+        "ctaText": "Try now",
+        "ctaHref": "/"
+      }
+    },
+    "alt": {
+      "zh": "VividAI 品牌主视觉",
+      "en": "VividAI key visual"
+    }
+  },
+  {
+    "id": "vivid-hero-12",
+    "assets": {
+      "avif": {
+        "sm": "/public/brand/hero/vivid-hero-12-sm.avif",
+        "md": "/public/brand/hero/vivid-hero-12-md.avif",
+        "lg": "/public/brand/hero/vivid-hero-12-lg.avif",
+        "xl": "/public/brand/hero/vivid-hero-12-xl.avif"
+      },
+      "webp": {
+        "sm": "/public/brand/hero/vivid-hero-12-sm.webp",
+        "md": "/public/brand/hero/vivid-hero-12-md.webp",
+        "lg": "/public/brand/hero/vivid-hero-12-lg.webp",
+        "xl": "/public/brand/hero/vivid-hero-12-xl.webp"
+      }
+    },
+    "lqip": "",
+    "locale": {
+      "zh": {
+        "title": "VividAI 视觉 12",
+        "subtitle": "高帧率 · 高质感 · 高转化",
+        "ctaText": "立即体验",
+        "ctaHref": "/"
+      },
+      "en": {
+        "title": "VividAI Visual 12",
+        "subtitle": "Cinematic speed. Creator-grade quality.",
+        "ctaText": "Try now",
+        "ctaHref": "/"
+      }
+    },
+    "alt": {
+      "zh": "VividAI 品牌主视觉",
+      "en": "VividAI key visual"
+    }
+  }
+]

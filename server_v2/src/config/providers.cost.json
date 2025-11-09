@@ -1,0 +1,37 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "updatedAt": "2025-09-11T00:00:00Z"
+  },
+  "providers": {
+    "runway": {
+      "pricePerMinuteCents": 65,
+      "sigmaThreshold": 1.5,
+      "notes": "Model-agnostic base rate; adjust per model multipliers in code."
+    },
+    "domoai": {
+      "pricePerMinuteCents": 48,
+      "sigmaThreshold": 1.6,
+      "notes": "Single flat rate per minute."
+    },
+    "luma": {
+      "pricePerMinuteCents": 38,
+      "sigmaThreshold": 1.8,
+      "notes": "Reflects Studio tier pricing."
+    },
+    "haiper": {
+      "pricePerMinuteCents": 55,
+      "sigmaThreshold": 1.7,
+      "notes": "GPU-accelerated render node."
+    },
+    "mock": {
+      "pricePerMinuteCents": 0,
+      "sigmaThreshold": 1.1,
+      "notes": "Local mock driver for dev."
+    }
+  },
+  "defaults": {
+    "pricePerMinuteCents": 60,
+    "sigmaThreshold": 2
+  }
+}

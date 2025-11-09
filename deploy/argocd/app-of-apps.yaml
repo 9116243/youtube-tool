@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: youtube-app-of-apps
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/example/youtube-tool
+    targetRevision: HEAD
+    path: deploy/argocd/apps
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

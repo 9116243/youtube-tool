@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  tasks        Task[]
+}
+
+model Task {
+  id        String      @id @default(cuid())
+  title     String
+  preset    String?
+  params    String      @default("{}")
+  status    String      @default("QUEUED")
+  progress  Int         @default(0)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  ownerId   String?
+  owner     User?       @relation(fields: [ownerId], references: [id])
+  generation Generation?
+}
+
+model AbTest {
+  id          String      @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime    @default(now())
+  samples     AbSample[]
+}
+
+model AbSample {
+  id        String   @id @default(cuid())
+  variant   String
+  payload   String?
+  testId    String
+  test      AbTest   @relation(fields: [testId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model PublishSchedule {
+  id           String   @id @default(cuid())
+  title        String
+  description  String?
+  scheduledFor DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Generation {
+  id           String   @id @default(cuid())
+  taskId       String   @unique
+  provider     String
+  policy       String
+  prompt       String
+  negative     String?
+  durationSec  Int
+  resolution   String
+  aspectRatio  String
+  fps          Int?
+  seed         Int?
+  references   String?
+  status       String   @default("pending")
+  requestId    String?
+  costCents    Int?
+  metadata     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  task   Task           @relation(fields: [taskId], references: [id])
+  events GenerationEvent[]
+  assets GenerationAsset[]
+}
+
+model GenerationEvent {
+  id           String   @id @default(cuid())
+  generationId String
+  phase        String
+  step         String
+  message      String?
+  payload      String?
+  createdAt    DateTime @default(now())
+
+  generation Generation @relation(fields: [generationId], references: [id])
+
+  @@index([generationId])
+}
+
+model GenerationAsset {
+  id           String   @id @default(cuid())
+  generationId String
+  kind         String
+  filename     String
+  path         String
+  mime         String
+  size         Int
+  hash         String?
+  metadata     String?
+  createdAt    DateTime @default(now())
+
+  generation Generation @relation(fields: [generationId], references: [id])
+
+  @@index([generationId])
+}

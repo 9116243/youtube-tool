@@ -1,0 +1,203 @@
+{
+  "dashboard": {
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "description": "Key visibility for the YouTube orchestration stack (API, queue, Temporal).",
+    "editable": true,
+    "graphTooltip": 0,
+    "id": null,
+    "links": [],
+    "panels": [
+      {
+        "datasource": "Prometheus",
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        },
+        "id": 1,
+        "legend": {
+          "show": true
+        },
+        "targets": [
+          {
+            "expr": "rate(process_cpu_seconds_total{job=\"youtube-api\"}[5m])",
+            "legendFormat": "{{job}}",
+            "refId": "A"
+          }
+        ],
+        "title": "API CPU Usage",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "Prometheus",
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        },
+        "id": 2,
+        "legend": {
+          "show": true
+        },
+        "targets": [
+          {
+            "expr": "process_resident_memory_bytes{job=\"youtube-api\"}",
+            "legendFormat": "{{job}}",
+            "refId": "A"
+          }
+        ],
+        "title": "API Memory",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "Prometheus",
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 8
+        },
+        "id": 3,
+        "legend": {
+          "show": true
+        },
+        "targets": [
+          {
+            "expr": "up{job=\"temporal\"}",
+            "legendFormat": "{{job}}",
+            "refId": "A"
+          }
+        ],
+        "title": "Temporal Availability",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "Prometheus",
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 8
+        },
+        "id": 4,
+        "legend": {
+          "show": true
+        },
+        "targets": [
+          {
+            "expr": "sum(youtube_pipeline_queue_depth)",
+            "legendFormat": "pipeline",
+            "refId": "A"
+          }
+        ],
+        "title": "Pipeline Queue Depth",
+        "type": "timeseries"
+      }
+      ,
+      {
+        "datasource": "Prometheus",
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 16
+        },
+        "id": 5,
+        "legend": {
+          "show": true
+        },
+        "targets": [
+          {
+            "expr": "cost_rollup_total_cents",
+            "legendFormat": "latest window",
+            "refId": "A"
+          }
+        ],
+        "title": "Recent Cost Rollup (¢)",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "Prometheus",
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 16
+        },
+        "id": 6,
+        "legend": {
+          "show": false
+        },
+        "targets": [
+          {
+            "expr": "cost_rollup_unit_cost_sigma",
+            "refId": "A"
+          }
+        ],
+        "title": "Unit Cost Sigma",
+        "type": "stat"
+      },
+      {
+        "datasource": "Prometheus",
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 24
+        },
+        "id": 7,
+        "legend": {
+          "show": true
+        },
+        "targets": [
+          {
+            "expr": "analytics_sla_api_success_rate",
+            "legendFormat": "API SLO",
+            "refId": "A"
+          },
+          {
+            "expr": "analytics_sla_generation_success_rate",
+            "legendFormat": "Generation SLO",
+            "refId": "B"
+          }
+        ],
+        "title": "SLA Success Rates",
+        "type": "timeseries"
+      }
+    ],
+    "schemaVersion": 38,
+    "style": "dark",
+    "tags": [
+      "youtube",
+      "api",
+      "temporal"
+    ],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "YouTube Suite Observability",
+    "uid": "youtube-suite-observability",
+    "version": 1
+  },
+  "overwrite": true
+}

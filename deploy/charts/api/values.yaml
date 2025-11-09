@@ -1,0 +1,73 @@
+replicaCount: 2
+
+image:
+  repository: ghcr.io/example
+  name: api
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 3001
+  targetPort: 3001
+
+resources: {}
+
+ingress:
+  enabled: true
+  host: api.example.com
+  className: nginx
+  annotations: {}
+  tls:
+    enabled: false
+    secretName: youtube-api-tls
+
+env:
+  NODE_ENV: production
+  K8S_ENABLED: "true"
+  PUBLIC_BASE_URL: https://api.example.com
+  LOG_LEVEL: info
+  COLOR_PIPELINE: hdr10
+  PER_TITLE_VMAF_TARGET: "93"
+  VMAF_MIN: "93"
+  HEARTBEAT_SEC: "15"
+  PREEMPTIBLE: "false"
+  DEV_TOOLS: "false"
+  QC_ENABLE: "true"
+  SELFTEST_ENABLE_EXTERNAL: "false"
+
+postgres:
+  host: postgres.default.svc.cluster.local
+  port: 5432
+  user: postgres
+  database: youtube_tool
+  password: changeme
+
+redis:
+  url: redis://redis.default.svc.cluster.local:6379
+
+minio:
+  endpoint: http://minio.default.svc.cluster.local:9000
+  accessKey: minio
+  secretKey: minio123
+
+temporal:
+  host: temporal.default.svc.cluster.local:7233
+  namespace: default
+  taskQueueCpu: video-cpu
+  taskQueueGpu: video-gpu
+  workflowQueue: video-pipeline
+  sseSecret: temporal-sse-secret
+
+workspace:
+  mountPath: /workspace
+  enabled: true
+  emptyDir: {}
+
+secret:
+  jwtSecret: dev-secret
+  kmsSecret: kms-secret
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

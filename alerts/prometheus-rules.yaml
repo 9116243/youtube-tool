@@ -1,0 +1,48 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: youtube-suite-rules
+spec:
+  groups:
+    - name: youtube-suite.rules
+      rules:
+        - alert: APIDown
+          expr: up{job="youtube-api"} == 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "REST API is unreachable"
+            description: "No API instances are reporting healthy in the last 5 minutes."
+        - alert: TemporalDown
+          expr: up{job="temporal"} == 0
+          for: 3m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Temporal service unavailable"
+            description: "Temporal server is not ready."
+        - alert: WorkerDown
+          expr: up{job=~"worker-cpu|worker-gpu"} == 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Worker queue drained / unreachable"
+            description: "No workers are ready to process Temporal tasks."
+        - alert: QueueDepthHigh
+          expr: sum(youtube_pipeline_queue_depth) > 100
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Pipeline queue depth high"
+            description: "The pipeline queue has more than 100 pending segments."
+        - alert: UnitCostAnomaly
+          expr: cost_rollup_unit_cost_sigma > 2
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Generation unit cost anomaly"
+            description: "Latest generation unit cost deviates significantly from configured pricing (tune COST_ALERT_UNIT_COST_SIGMA)."
