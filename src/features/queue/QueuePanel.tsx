@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+﻿import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { PauseOctagon, Play, RefreshCw, X } from "lucide-react";
 
@@ -174,7 +174,7 @@ export function QueuePanel() {
 
             {task.performance ? (
               <div className="mt-3 flex flex-wrap items-center gap-3 text-[11px] text-slate-400">
-                <span>≈ {formatDuration(task.performance.renderSeconds)} render</span>
+                <span>鈮?{formatDuration(task.performance.renderSeconds)} render</span>
                 <span>{task.performance.vramMB} MB VRAM</span>
                 {task.performance.notes?.map((note) => (
                   <Badge
@@ -345,3 +345,4 @@ export function QueuePanel() {
 }
 
 export default QueuePanel;
+

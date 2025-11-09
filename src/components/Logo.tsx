@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 
 import { cn } from '@/lib/utils';
 
@@ -66,3 +66,4 @@ export function Logo({ className, showLabel = true }: LogoProps) {
     </div>
   );
 }
+

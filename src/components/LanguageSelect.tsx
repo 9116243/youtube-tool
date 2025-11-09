@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { Check } from "lucide-react";
 
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
@@ -81,3 +81,4 @@ export function LanguageSelect({ value, onChange, className }: LanguageSelectPro
 }
 
 export default LanguageSelect;
+

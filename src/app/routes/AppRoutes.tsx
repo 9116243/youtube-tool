@@ -1,4 +1,4 @@
-import { Navigate, useRoutes } from 'react-router-dom';
+﻿import { Navigate, useRoutes } from 'react-router-dom';
 
 import { AppLayout } from '@/components/layout/AppLayout';
 import { DashboardPage } from '@/features/dashboard/DashboardPage';
@@ -32,3 +32,4 @@ export function AppRoutes() {
     }
   ]);
 }
+

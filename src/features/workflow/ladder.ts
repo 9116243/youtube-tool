@@ -1,4 +1,4 @@
-import type { LadderProfile } from "@/lib/types";
+﻿import type { LadderProfile } from "@/lib/types";
 
 export const LADDER_PRESETS: LadderProfile[] = [
   {
@@ -43,3 +43,4 @@ export function cloneLadderProfile(profile: LadderProfile): LadderProfile {
     steps: profile.steps.map((step) => ({ ...step })),
   };
 }
+

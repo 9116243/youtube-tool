@@ -1,4 +1,4 @@
-import { RECOMMENDED_BITRATES } from "@/features/workflow/presets";
+﻿import { RECOMMENDED_BITRATES } from "@/features/workflow/presets";
 import { resolveVideoBitrate } from "@/features/workflow/calc";
 import type { LadderProfile, RenderProfile, OutputResolution, UpscaleMode } from "@/lib/types";
 
@@ -224,3 +224,4 @@ export function buildLadderCommands(profile: RenderProfile, ladder: LadderProfil
     return { step, passes: [pass2] };
   });
 }
+

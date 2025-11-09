@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+﻿import { useMemo, useState } from "react"
 import { motion } from "framer-motion"
 import { CheckCircle2, Clock3, Globe2, RefreshCcw, Send } from "lucide-react"
 
@@ -24,8 +24,7 @@ import PageHeader from "@/components/ui/PageHeader"
 import { useToast } from "@/hooks/use-toast"
 import { timeAgo } from "@/lib/utils"
 
-// 语言 & 队列 & 流水线
-import { LANGUAGES, type LanguageCode } from "@/lib/languages"
+// 璇█ & 闃熷垪 & 娴佹按绾?import { LANGUAGES, type LanguageCode } from "@/lib/languages"
 import { useQueueStore } from "@/features/queue/store"
 import type { BaseTask, SubtitleTaskPayload } from "@/lib/pipeline"
 
@@ -34,7 +33,7 @@ type PublishStatus = "draft" | "scheduled" | "published" | "failed"
 interface PublishRow {
   id: string
   platform: string
-  language: string // BCP-47，如 en-US
+  language: string // BCP-47锛屽 en-US
   region: string
   scheduledFor: string
   status: PublishStatus
@@ -103,7 +102,7 @@ const statusOrder: Record<PublishStatus, number> = {
   failed: 0,
 }
 
-// 将 "en-US" 显示为 "🇺🇸 English (US) · en-US"
+// 灏?"en-US" 鏄剧ず涓?"馃嚭馃嚫 English (US) 路 en-US"
 function renderLanguageCell(code: string) {
   const meta = LANGUAGES.find((l) => l.code === code)
   if (!meta) return <span className="font-mono">{code.toUpperCase()}</span>
@@ -113,14 +112,14 @@ function renderLanguageCell(code: string) {
       <div className="flex flex-col leading-tight">
         <span className="text-sm">{meta.name}</span>
         <span className="text-xs text-slate-400">
-          {meta.englishName} · {meta.code}
+          {meta.englishName} 路 {meta.code}
         </span>
       </div>
     </div>
   )
 }
 
-// 生成一个 id
+// 鐢熸垚涓€涓?id
 const nid = (p: string) => `${p}_${Math.random().toString(36).slice(2)}`
 
 export function PublishPage() {
@@ -132,11 +131,10 @@ export function PublishPage() {
   const [statusFilter, setStatusFilter] = useState<PublishStatus | "all">("all")
   const [regionFilter, setRegionFilter] = useState<string>("all")
 
-  // 👉 新增：流水线输入（视频标题 / 源视频地址）
-  const [videoTitle, setVideoTitle] = useState("样片标题")
+  // 馃憠 鏂板锛氭祦姘寸嚎杈撳叆锛堣棰戞爣棰?/ 婧愯棰戝湴鍧€锛?  const [videoTitle, setVideoTitle] = useState("鏍风墖鏍囬")
   const [sourceUrl, setSourceUrl] = useState("/media/demo.mp4")
 
-  // 👉 新增：行选择
+  // 馃憠 鏂板锛氳閫夋嫨
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
 
   const filteredRows = useMemo(() => {
@@ -170,11 +168,9 @@ export function PublishPage() {
     setSelectedIds((prev) => {
       const next = new Set(prev)
       if (allSelectedVisible) {
-        // 取消选中所有可见
-        allVisibleIds.forEach((id) => next.delete(id))
+        // 鍙栨秷閫変腑鎵€鏈夊彲瑙?        allVisibleIds.forEach((id) => next.delete(id))
       } else {
-        // 选中所有可见
-        allVisibleIds.forEach((id) => next.add(id))
+        // 閫変腑鎵€鏈夊彲瑙?        allVisibleIds.forEach((id) => next.add(id))
       }
       return next
     })
@@ -192,22 +188,21 @@ export function PublishPage() {
     })
   }
 
-  // 👉 关键：把选中行 → 语言数组 → 生成字幕任务 → 生成“配音+烧录”流水线并入队
-  const createPipelineFromSelection = async () => {
+  // 馃憠 鍏抽敭锛氭妸閫変腑琛?鈫?璇█鏁扮粍 鈫?鐢熸垚瀛楀箷浠诲姟 鈫?鐢熸垚鈥滈厤闊?鐑у綍鈥濇祦姘寸嚎骞跺叆闃?  const createPipelineFromSelection = async () => {
     const selectedRows = filteredRows.filter((r) => selectedIds.has(r.id))
     if (!selectedRows.length) {
-      toast({ title: "请选择要生成的行", description: "请至少勾选一条语言行", variant: "destructive" as any })
+      toast({ title: "璇烽€夋嫨瑕佺敓鎴愮殑琛?, description: "璇疯嚦灏戝嬀閫変竴鏉¤瑷€琛?, variant: "destructive" as any })
       return
     }
     if (!sourceUrl.trim()) {
-      toast({ title: "缺少视频地址", description: "请填写 Source Video URL", variant: "destructive" as any })
+      toast({ title: "缂哄皯瑙嗛鍦板潃", description: "璇峰～鍐?Source Video URL", variant: "destructive" as any })
       return
     }
 
-    // 1) 生成“字幕任务”并入队（前端创建；也可以改为后端接口创建）
+    // 1) 鐢熸垚鈥滃瓧骞曚换鍔♀€濆苟鍏ラ槦锛堝墠绔垱寤猴紱涔熷彲浠ユ敼涓哄悗绔帴鍙ｅ垱寤猴級
     const subTasks: BaseTask<SubtitleTaskPayload>[] = selectedRows.map((r) => {
       const lang = r.language as LanguageCode
-      // 简单校验：必须在语言表里存在
+      // 绠€鍗曟牎楠岋細蹇呴』鍦ㄨ瑷€琛ㄩ噷瀛樺湪
       const meta = LANGUAGES.find((l) => l.code === lang)
       if (!meta) {
         throw new Error(`Unsupported language: ${lang}`)
@@ -215,7 +210,7 @@ export function PublishPage() {
       return {
         id: nid(`sub_${lang}`),
         kind: "subtitle",
-        title: `字幕 · ${lang}`,
+        title: `瀛楀箷 路 ${lang}`,
         params: {
           kind: "subtitle",
           sourceUrl,
@@ -231,8 +226,7 @@ export function PublishPage() {
       }
     })
 
-    // 先把“字幕任务”作为普通任务入队（后端可以选择忽略/处理）
-    await queue.addTasks(
+    // 鍏堟妸鈥滃瓧骞曚换鍔♀€濅綔涓烘櫘閫氫换鍔″叆闃燂紙鍚庣鍙互閫夋嫨蹇界暐/澶勭悊锛?    await queue.addTasks(
       subTasks.map((t) => ({
         title: t.title,
         preset: "subtitle-generation",
@@ -244,21 +238,20 @@ export function PublishPage() {
       })),
     )
 
-    // 2) 再让队列根据“字幕任务”自动生成 配音+烧录
+    // 2) 鍐嶈闃熷垪鏍规嵁鈥滃瓧骞曚换鍔♀€濊嚜鍔ㄧ敓鎴?閰嶉煶+鐑у綍
     const { dubs, burns } = await queue.addLocalizationPipeline({
       subtitleTasks: subTasks,
       sourceVideo: sourceUrl,
       provider: "elevenlabs",
-      voiceMap: {}, // 如果页面上接了 TTSSelector，可以把各语言 voiceId 填进来
-      outDir: "./outputs",
+      voiceMap: {}, // 濡傛灉椤甸潰涓婃帴浜?TTSSelector锛屽彲浠ユ妸鍚勮瑷€ voiceId 濉繘鏉?      outDir: "./outputs",
       codec: "h264",
       resolution: "1080p",
       mixDubbing: true,
     })
 
     toast({
-      title: `已创建流水线任务`,
-      description: `字幕 ${subTasks.length} 条 · 配音 ${dubs.length} 条 · 烧录 ${burns.length} 条`,
+      title: `宸插垱寤烘祦姘寸嚎浠诲姟`,
+      description: `瀛楀箷 ${subTasks.length} 鏉?路 閰嶉煶 ${dubs.length} 鏉?路 鐑у綍 ${burns.length} 鏉,
     })
   }
 
@@ -275,18 +268,18 @@ export function PublishPage() {
         }
       />
 
-      {/* 流水线输入区 */}
+      {/* 娴佹按绾胯緭鍏ュ尯 */}
       <Card className="bg-white/5 backdrop-blur-xl">
         <CardHeader>
           <CardTitle className="text-base">Pipeline Inputs</CardTitle>
-          <CardDescription>选择表格行后，填写下面信息，一键生成“字幕→配音→烧录”。</CardDescription>
+          <CardDescription>閫夋嫨琛ㄦ牸琛屽悗锛屽～鍐欎笅闈俊鎭紝涓€閿敓鎴愨€滃瓧骞曗啋閰嶉煶鈫掔儳褰曗€濄€?/CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4 lg:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="video-title">Video Title</Label>
             <Input
               id="video-title"
-              placeholder="用于任务标题展示"
+              placeholder="鐢ㄤ簬浠诲姟鏍囬灞曠ず"
               value={videoTitle}
               onChange={(e) => setVideoTitle(e.target.value)}
             />
@@ -295,7 +288,7 @@ export function PublishPage() {
             <Label htmlFor="video-src">Source Video URL / Path</Label>
             <Input
               id="video-src"
-              placeholder="/path/to/video.mp4 或 https://.../video.mp4"
+              placeholder="/path/to/video.mp4 鎴?https://.../video.mp4"
               value={sourceUrl}
               onChange={(e) => setSourceUrl(e.target.value)}
             />
@@ -306,13 +299,12 @@ export function PublishPage() {
               onClick={createPipelineFromSelection}
               disabled={!selectedIds.size}
             >
-              生成字幕 → 配音 → 烧录（已选 {selectedIds.size}）
-            </Button>
+              鐢熸垚瀛楀箷 鈫?閰嶉煶 鈫?鐑у綍锛堝凡閫?{selectedIds.size}锛?            </Button>
           </div>
         </CardContent>
       </Card>
 
-      {/* 过滤器 */}
+      {/* 杩囨护鍣?*/}
       <Card className="bg-white/5 backdrop-blur-xl">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
@@ -370,7 +362,7 @@ export function PublishPage() {
         </CardContent>
       </Card>
 
-      {/* 表格 */}
+      {/* 琛ㄦ牸 */}
       <Card className="bg-white/5 backdrop-blur-xl">
         <CardHeader>
           <CardTitle>Publishing matrix</CardTitle>
@@ -471,7 +463,7 @@ export function PublishPage() {
                           Mark live
                         </Button>
 
-                        {/* Retry later → 重新排期（scheduled） */}
+                        {/* Retry later 鈫?閲嶆柊鎺掓湡锛坰cheduled锛?*/}
                         <Button
                           variant="ghost"
                           size="sm"
@@ -501,3 +493,4 @@ export function PublishPage() {
 }
 
 export default PublishPage
+

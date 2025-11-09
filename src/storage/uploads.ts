@@ -1,6 +1,6 @@
-import { randomUUID, createHash } from 'node:crypto';
+﻿import { randomUUID, createHash } from 'node:crypto';
 import { basename } from 'node:path';
-import { getStorageAdapter } from '../adapters/storage/index.js';
+import { getStorageAdapter } from '';
 
 const storage = getStorageAdapter();
 
@@ -23,3 +23,4 @@ export const saveUploadBuffer = async (buffer: Buffer, originalName?: string) =>
     hash
   };
 };
+

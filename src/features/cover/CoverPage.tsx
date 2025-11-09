@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Download, ImagePlus, Palette } from "lucide-react";
 
@@ -301,3 +301,4 @@ export function CoverPage() {
 }
 
 export default CoverPage;
+

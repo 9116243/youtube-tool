@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { Download, Flame, Import, PlusCircle, Trash2, Upload } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -204,7 +204,7 @@ export function TemplateManager() {
                   <div className="flex min-w-0 flex-1 flex-col">
                     <span className="text-sm font-semibold text-white">{template.name}</span>
                     <span className="text-xs text-slate-400">
-                      v{template.current.version} · Updated {new Date(template.updatedAt).toLocaleString()}
+                      v{template.current.version} 路 Updated {new Date(template.updatedAt).toLocaleString()}
                     </span>
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
@@ -236,7 +236,7 @@ export function TemplateManager() {
                 </div>
                 {template.history.length ? (
                   <div className="mt-2 text-[11px] text-slate-400">
-                    Previous versions: v{template.history[0].version} · {template.history.length} entries
+                    Previous versions: v{template.history[0].version} 路 {template.history.length} entries
                   </div>
                 ) : null}
               </div>
@@ -249,3 +249,4 @@ export function TemplateManager() {
 }
 
 export default TemplateManager;
+

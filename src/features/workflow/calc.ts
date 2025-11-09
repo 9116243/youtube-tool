@@ -1,4 +1,4 @@
-import { RECOMMENDED_BITRATES } from "@/features/workflow/presets";
+﻿import { RECOMMENDED_BITRATES } from "@/features/workflow/presets";
 import type {
   AnalysisResolution,
   AudioCodec,
@@ -307,3 +307,4 @@ export function estimateVRAM(
 }
 
 export type { PerformanceContext };
+

@@ -1,4 +1,4 @@
-export const isTauri = typeof (window as unknown as { __TAURI__?: unknown }).__TAURI__ !== "undefined";
+﻿export const isTauri = typeof (window as unknown as { __TAURI__?: unknown }).__TAURI__ !== "undefined";
 
 type InvokeFn = <T = unknown>(cmd: string, args?: Record<string, unknown>) => Promise<T>;
 type ListenFn<T> = (event: string, handler: (payload: T) => void) => Promise<UnlistenFn>;
@@ -58,3 +58,4 @@ export async function listenJobProgress(
   }
   return () => {};
 }
+

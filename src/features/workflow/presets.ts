@@ -1,4 +1,4 @@
-import type {
+﻿import type {
   BrollDensity,
   RecommendedBitrate,
   RenderProfile,
@@ -268,3 +268,4 @@ export const STYLE_PRESETS: WorkflowPreset[] = [
 export function getRecommendedBitrate(resolution: OutputResolution): RecommendedBitrate {
   return RECOMMENDED_BITRATES[resolution];
 }
+

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+﻿import { useMemo } from "react";
 import { FileText, Printer } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -160,7 +160,7 @@ export function ReportCenterPage() {
                 <div>
                   <p className="text-xs text-slate-400">Audio</p>
                   <p>
-                    {report.profile.audioCodec.toUpperCase()} · {report.profile.audioChannels} · {report.profile.audioSampleRate / 1000}kHz
+                    {report.profile.audioCodec.toUpperCase()} 路 {report.profile.audioChannels} 路 {report.profile.audioSampleRate / 1000}kHz
                   </p>
                 </div>
                 <div>
@@ -185,3 +185,4 @@ export function ReportCenterPage() {
 }
 
 export default ReportCenterPage;
+

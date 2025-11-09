@@ -12,7 +12,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
     "typecheck": "tsc --noEmit",
     "mock": "node mock/server.js",
-    "mock:server": "node mock/server.js"
+    "mock:server": "node mock/server.js",
+    "tsc:web": "tsc -p tsconfig.web.json"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "1.1.1",

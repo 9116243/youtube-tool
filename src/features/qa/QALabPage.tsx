@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import { Loader2, Sparkles, Upload } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -355,3 +355,4 @@ export function QALabPage() {
 }
 
 export default QALabPage;
+

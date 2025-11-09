@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+﻿import { useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Bell, ChevronDown, Menu, Moon, Settings, Sun, User } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
@@ -250,3 +250,4 @@ export function TopBar() {
     </motion.header>
   );
 }
+

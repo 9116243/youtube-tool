@@ -1,4 +1,4 @@
-import { type PropsWithChildren } from 'react';
+﻿import { type PropsWithChildren } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { Sidebar } from '@/components/Sidebar';
@@ -41,3 +41,4 @@ export function Shell({ children }: PropsWithChildren) {
     </div>
   );
 }
+

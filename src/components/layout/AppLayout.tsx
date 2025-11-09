@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+﻿import { Outlet } from 'react-router-dom';
 
 import { Shell } from '@/components/Shell';
 
@@ -9,3 +9,4 @@ export function AppLayout() {
     </Shell>
   );
 }
+
